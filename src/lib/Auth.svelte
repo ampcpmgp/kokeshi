@@ -18,17 +18,6 @@
 </div>
 
 <style>
-  .tag {
-    font-size: 12px;
-    color: #ccc;
-    border: solid 1px #999;
-    padding: 4px;
-    border-radius: 4px;
-    position: absolute;
-    top: 100%;
-    right: 0;
-  }
-
   .balloon {
     position: relative;
     top: 1rem;
