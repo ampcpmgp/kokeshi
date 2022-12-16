@@ -2,7 +2,7 @@
   import { onMount } from "svelte";
   import { supabase } from "../supabaseClient";
   import type { AuthSession } from "@supabase/supabase-js";
-  import Account from "../lib/Account.svelte";
+  import Main from "../lib/Main.svelte";
   import Auth from "../lib/Auth.svelte";
 
   let session: AuthSession;
@@ -22,6 +22,6 @@
   {#if !session}
     <Auth />
   {:else}
-    <Account {session} />
+    <Main />
   {/if}
 </main>
