@@ -8,6 +8,9 @@
     const token = tokenP;
 
     const { data, error } = await supabase.functions.invoke("openai", {
+      headers: {
+        mode: "no-cors",
+      },
       body: { message: value },
     });
   }
