@@ -18,10 +18,10 @@
   });
 </script>
 
-<div class="container" style="padding: 50px 0 100px 0">
+<main>
   {#if !session}
     <Auth />
   {:else}
     <Account {session} />
   {/if}
-</div>
+</main>
