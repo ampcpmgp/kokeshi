@@ -11,13 +11,6 @@
   }
 </script>
 
-<header>
-  <h1>
-    Kokeshi
-    <p class="tag">AI Powered Communication Tool</p>
-  </h1>
-</header>
-
 <div><button on:click={signIn}>Google Login</button></div>
 
 <div class="balloon">
@@ -25,19 +18,6 @@
 </div>
 
 <style>
-  header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    display: grid;
-    width: 100%;
-    place-items: center;
-  }
-
-  h1 {
-    position: relative;
-  }
-
   .tag {
     font-size: 12px;
     color: #ccc;
