@@ -4,9 +4,9 @@
 </script>
 
 <main>
-  <button>
-    <a href="/emotion" use:link>感情</a>
-  </button>
+  <a href="/emotion" use:link>
+    <button>感情</button>
+  </a>
 
   <hr />
   <button on:click={() => supabase.auth.signOut()}>Sign Out</button>
