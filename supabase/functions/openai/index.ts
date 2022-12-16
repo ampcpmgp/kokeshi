@@ -5,8 +5,10 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
 
 serve(async (req) => {
-	Deno.env.get("OPENAI_API_KEY")
-  const response = await fetch("https://api.openai.com/v1/completions", {
+	const reqData = await req.json()
+
+  const response = await fetch("https://api.openai.com/v1/completions",
+	 {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
@@ -14,7 +16,7 @@ serve(async (req) => {
 		},
 		body: JSON.stringify({
 			model: "text-davinci-003",	
-			prompt: "This is a test",
+			prompt: reqData.message,
 		})
 	});
 
