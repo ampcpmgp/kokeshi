@@ -4,7 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "concurrently \"npm:dev:*\"",
+    "dev:frontend": "vite",
+    "dev:functions": "npx supabase functions serve --env-file .env openai",
     "build": "vite build",
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json"
@@ -20,6 +22,7 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.2.0",
+    "concurrently": "^7.6.0",
     "openai": "^3.1.0",
     "stripe": "^11.4.0",
     "supabase": "^1.26.5",
