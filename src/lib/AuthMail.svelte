@@ -18,23 +18,28 @@
 
     success = true;
   }
+
+  async function login() {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (error) alert(error);
+  }
 </script>
 
-<Box title="メール認証" wip>
+<Box title="Login" wip>
   <label for="">Email</label>
   <input type="email" bind:value={email} />
   <label for="">Password</label>
   <input type="password" bind:value={password} />
 
   <br />
-  <button on:click={register}>登録する</button>
-  <br />
-  {#if success}
-    Success!
-  {/if}
+  <button on:click={login}>ログイン</button>
 </Box>
 
-<Box title="メール認証" wip>
+<Box title="Register" wip>
   <label for="">Email</label>
   <input type="email" bind:value={email} />
   <label for="">Password</label>
