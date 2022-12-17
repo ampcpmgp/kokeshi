@@ -1,5 +1,6 @@
 <script lang="ts">
   import { supabase } from "../supabaseClient";
+  import Box from "./Box.svelte";
 
   async function signIn() {
     const { data, error } = await supabase.auth.signInWithOAuth({
@@ -17,12 +18,20 @@
   <p>500円分のクレジットを手にする</p>
 </div>
 
+<Box title="メール認証">
+  <label for="">Email</label>
+  <input type="email" />
+  <label for="">Password</label>
+  <input type="password" />
+</Box>
+
 <style>
   .balloon {
     position: relative;
     top: 1rem;
     border-radius: 8px;
     border: solid 1px #999;
+    margin-bottom: 28px;
   }
 
   .balloon::before {
