@@ -10,6 +10,7 @@ export const tokenP = supabase.auth.getSession().then(({ data, error }) => {
 	if (error) throw error
 	if (!data.session) {
 		push("/")
+		return;
 	}
 	return data.session.access_token
 })
