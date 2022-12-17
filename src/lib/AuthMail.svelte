@@ -1,16 +1,22 @@
 <script>
+  import { supabase } from "../supabaseClient";
   import Box from "./Box.svelte";
 
   let email = "";
   let password = "";
+  let success = false;
 
-  function register() {
-    console.log(
-      "\n---------- filtered log 🚀 ------------\n\n",
-      "filtered log 🚀 email,password",
+  async function register() {
+    success = false;
+
+    const { data, error } = await supabase.auth.signUp({
       email,
-      password
-    );
+      password,
+    });
+
+    if (error) alert(error);
+
+    success = true;
   }
 </script>
 
@@ -22,4 +28,8 @@
 
   <br />
   <button on:click={register}>登録する</button>
+  <br />
+  {#if success}
+    Success!
+  {/if}
 </Box>
