@@ -16,7 +16,6 @@ serve(async (req) => {
 
 	const reqData = await req.json()
 
-
 	// Create a Supabase client with the Auth context of the logged in user.
 	const supabaseClient = createClient(
 		// Supabase API URL - env var exported by default.
@@ -37,6 +36,7 @@ serve(async (req) => {
 		if (error) throw error
 		if (!user) throw new Error("No User")
 
+	// https://beta.openai.com/docs/api-reference/completions
   const response = await fetch("https://api.openai.com/v1/completions",
 	 {
 		method: "POST",
@@ -53,7 +53,7 @@ serve(async (req) => {
 	const data = await response.json()
 
   return new Response(
-    JSON.stringify({data, user}),
+    JSON.stringify(data),
     { headers: { ...corsHeaders, "Content-Type": "application/json" } },
   )
 })
