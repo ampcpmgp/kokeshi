@@ -19,7 +19,9 @@
   <p>500円分のクレジットを手にする</p>
 </div>
 
-<AuthMail />
+{#if import.meta.env.DEV}
+  <AuthMail />
+{/if}
 
 <style>
   .balloon {
