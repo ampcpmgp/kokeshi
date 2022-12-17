@@ -15,6 +15,7 @@
   .box {
     border-radius: 8px;
     padding: 8px;
+    margin: 12px;
     border: solid 1px #999;
   }
   .box.wip {

@@ -46,7 +46,9 @@ serve(async (req) => {
 		},
 		body: JSON.stringify({
 			model: "text-davinci-003",	
-			prompt: reqData.message,
+			prompt: reqData.prompt,
+			// default 16
+			max_tokens: reqData.max_tokens ?? 64,
 		})
 	});
 
