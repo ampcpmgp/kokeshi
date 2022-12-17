@@ -14,9 +14,6 @@
     const message = `${pre}\n${value}\n${suf}`;
 
     const { data, error } = await supabase.functions.invoke("openai", {
-      headers: {
-        mode: "no-cors",
-      },
       body: { message },
     });
 
