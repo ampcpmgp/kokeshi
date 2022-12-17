@@ -1,9 +1,13 @@
 <script>
   export let title = "";
+  export let wip = false;
 </script>
 
-<div class="box">
-  <p>[工事中] {title}</p>
+<div class="box" class:wip>
+  {#if wip}
+    👷　工事中 👷
+  {/if}
+  <p>{title}</p>
   <slot />
 </div>
 
@@ -11,6 +15,9 @@
   .box {
     border-radius: 8px;
     padding: 8px;
-    border: solid 1px yellowgreen;
+    border: solid 1px #999;
+  }
+  .box.wip {
+    border-color: yellow;
   }
 </style>
