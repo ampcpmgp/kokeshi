@@ -1,4 +1,5 @@
 <script lang="ts">
+  import AuthMail from "./AuthMail.svelte";
   import { supabase } from "../supabaseClient";
   import Box from "./Box.svelte";
 
@@ -18,12 +19,7 @@
   <p>500円分のクレジットを手にする</p>
 </div>
 
-<Box title="メール認証">
-  <label for="">Email</label>
-  <input type="email" />
-  <label for="">Password</label>
-  <input type="password" />
-</Box>
+<AuthMail />
 
 <style>
   .balloon {
