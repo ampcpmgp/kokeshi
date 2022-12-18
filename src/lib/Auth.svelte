@@ -16,7 +16,7 @@
 <div><button on:click={signIn}>Google Login</button></div>
 
 <div class="balloon">
-  <p>500円分のクレジットを手にする</p>
+  <p>100円分のクレジットを手にする</p>
 </div>
 
 {#if import.meta.env.DEV}
