@@ -1,0 +1,1 @@
+export const PRICE_PER_WORD = 0.07;

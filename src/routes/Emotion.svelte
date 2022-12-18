@@ -42,6 +42,10 @@
 
   <button on:click={onExecute} disabled={executeDisabled}>実行</button>
 
+  <div>
+    <span>最低価格: </span> ~ <span>最大価格: </span>
+  </div>
+
   <h2>Result</h2>
   <div class="result">{result}</div>
   <span class="lenght">{result.length}</span>
