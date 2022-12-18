@@ -2,6 +2,29 @@
   import AuthMail from "./AuthMail.svelte";
   import { supabase } from "../supabaseClient";
   import Box from "./Box.svelte";
+  import { onMount } from "svelte";
+
+  // キャンペーン中
+  let inCampaign = false;
+
+  onMount(() => {
+    campaigns();
+  });
+
+  async function campaigns() {
+    const { data: campaigns, error } = await supabase
+      .from("campaigns")
+      .select("*");
+
+    const campaign = campaigns?.find((c) => c.remaining > 0);
+
+    if (!campaign) {
+      inCampaign = false;
+      return;
+    }
+
+    inCampaign = !campaign;
+  }
 
   async function signIn() {
     const { data, error } = await supabase.auth.signInWithOAuth({
@@ -15,9 +38,11 @@
 
 <div><button on:click={signIn}>Google Login</button></div>
 
-<div class="balloon">
-  <p>100円分のクレジットを手にする</p>
-</div>
+{#if inCampaign}
+  <div class="balloon">
+    <p>100円分のクレジットを手にする</p>
+  </div>
+{/if}
 
 {#if import.meta.env.DEV}
   <AuthMail />
