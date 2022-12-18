@@ -14,7 +14,10 @@
       password,
     });
 
-    if (error) alert(error);
+    if (error) {
+      alert(error);
+      return;
+    }
 
     success = true;
   }
