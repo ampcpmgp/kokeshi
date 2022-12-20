@@ -1,14 +1,11 @@
 <script>
-  import { supabase, tokenP } from "./../supabaseClient";
-
-  const pre = "次のチャットの感情を絵文字で分類してください:";
-  const suf = "感情:";
+  import { supabase, tokenP } from "../supabaseClient";
 
   let message = ``;
   let result = "";
   let max_tokens = 64;
   let executing = false;
-  $: prompt = `${pre}\n${message}\n${suf}`;
+  $: prompt = message;
   $: executeDisabled = executing || message.length === 0;
 
   async function onExecute() {
@@ -30,8 +27,6 @@
 </script>
 
 <main>
-  <p>入力したメッセージの感情を絵文字で判定することが出来ます。</p>
-
   <h2>Input</h2>
   <textarea bind:value={message} placeholder="" />
 
