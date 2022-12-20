@@ -37,7 +37,7 @@
 </script>
 
 <main>
-  <p>自由に入力したメッセージから意図を推測し、返信されます</p>
+  <p>入力したメッセージから意図を推測し、返信されます</p>
 
   <h2>Input</h2>
   <textarea bind:value={message} placeholder="" />
