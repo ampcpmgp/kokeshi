@@ -1,12 +1,14 @@
 <script>
   import { supabase, tokenP } from "../supabaseClient";
+  import { getMaxToken, getToken } from "../utils/token";
 
   let message = ``;
   let result = "";
-  let max_tokens = 64;
   let executing = false;
   $: prompt = message;
   $: executeDisabled = executing || message.length === 0;
+  $: messageToken = getToken(message);
+  $: max_tokens = getMaxToken(messageToken);
 
   async function onExecute() {
     executing = true;
@@ -17,7 +19,13 @@
 
     if (error) {
       executing = false;
+      alert(error?.message);
       throw error;
+    }
+
+    if (data.error) {
+      alert(data.error?.message);
+      throw new Error(data.error?.message);
     }
 
     const choice = data.choices[0];
@@ -47,11 +55,14 @@
   .result {
     width: 600px;
     max-width: 80%;
-    height: 140px;
+    min-height: 140px;
+    padding: 12px;
+    font-size: 18px;
   }
 
   .result {
     border-radius: 8px;
     border: solid 1px #ccc;
+    white-space: pre-wrap;
   }
 </style>
