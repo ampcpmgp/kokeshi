@@ -20,11 +20,13 @@
     if (error) {
       executing = false;
       alert(error?.message);
+      executing = false;
       throw error;
     }
 
     if (data.error) {
       alert(data.error?.message);
+      executing = false;
       throw new Error(data.error?.message);
     }
 
@@ -35,6 +37,8 @@
 </script>
 
 <main>
+  <p>自由に入力したメッセージから意図を推測し、返信されます</p>
+
   <h2>Input</h2>
   <textarea bind:value={message} placeholder="" />
 
