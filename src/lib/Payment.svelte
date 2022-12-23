@@ -1,6 +1,6 @@
 <main>
-  <input type="number" name="test" value={100} />
-  <button>入金する</button>
+  <input disabled type="number" name="test" value={100} />
+  <button disabled>入金する (工事中👷)</button>
 </main>
 
 <style>

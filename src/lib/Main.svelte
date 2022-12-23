@@ -5,13 +5,17 @@
 </script>
 
 <main>
-  <a href="/emotion" use:link>
-    <button>感情判定 😄</button>
-  </a>
+  <div>
+    <a href="/emotion" use:link>
+      <button>感情判定 😄 (0.2~0.8円)</button>
+    </a>
+  </div>
 
-  <a href="/free" use:link>
-    <button>自由入力 💬</button>
-  </a>
+  <div>
+    <a href="/free" use:link>
+      <button>自由入力 💬 (0.2~22円)</button>
+    </a>
+  </div>
 
   <hr />
 
@@ -19,7 +23,9 @@
 
   <hr />
 
-  <button on:click={() => supabase.auth.signOut()}>Sign Out</button>
+  <div>
+    <button on:click={() => supabase.auth.signOut()}>Sign Out</button>
+  </div>
 </main>
 
 <style>
