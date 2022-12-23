@@ -1,6 +1,7 @@
 <script lang="ts">
   import { link } from "svelte-spa-router";
   import { supabase } from "../supabaseClient";
+  import Payment from "./Payment.svelte";
 </script>
 
 <main>
@@ -13,6 +14,11 @@
   </a>
 
   <hr />
+
+  <Payment />
+
+  <hr />
+
   <button on:click={() => supabase.auth.signOut()}>Sign Out</button>
 </main>
 
