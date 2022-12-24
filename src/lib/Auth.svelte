@@ -3,6 +3,7 @@
   import { supabase } from "../supabaseClient";
   import Box from "./Box.svelte";
   import { onMount } from "svelte";
+  import CircleButton from "./CircleButton.svelte";
 
   // キャンペーン中
   let inCampaign = false;
@@ -26,7 +27,7 @@
     inCampaign = !campaign;
   }
 
-  async function signIn() {
+  async function signInGoogle() {
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
@@ -36,7 +37,17 @@
   }
 </script>
 
-<div><button on:click={signIn}>Google Login</button></div>
+<div>Login</div>
+
+<div class="other">
+  <CircleButton on:click={signInGoogle}>
+    <i class="fa-brands fa-google" />
+  </CircleButton>
+
+  <CircleButton on:click={signInGoogle}>
+    <i class="fa-solid fa-envelope" />
+  </CircleButton>
+</div>
 
 {#if inCampaign}
   <div class="balloon">
@@ -45,10 +56,18 @@
 {/if}
 
 {#if import.meta.env.DEV}
-  <AuthMail />
+  <!-- <AuthMail /> -->
 {/if}
 
 <style>
+  .other {
+    min-width: 120px;
+    margin: 8px;
+    display: inline-flex;
+    justify-content: right;
+    border-top: solid 1px #ccc;
+  }
+
   .balloon {
     position: relative;
     top: 1rem;
