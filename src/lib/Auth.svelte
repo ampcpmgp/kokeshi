@@ -1,7 +1,6 @@
 <script lang="ts">
-  import AuthMail from "./AuthMail.svelte";
+  import { push } from "svelte-spa-router";
   import { supabase } from "../supabaseClient";
-  import Box from "./Box.svelte";
   import { onMount } from "svelte";
   import CircleButton from "./CircleButton.svelte";
 
@@ -35,16 +34,20 @@
       },
     });
   }
+
+  async function goToEmailAuth() {
+    push("/email-auth");
+  }
 </script>
 
-<div>Login</div>
+<div>Login below</div>
 
-<div class="other">
+<div class="pathway">
   <CircleButton on:click={signInGoogle}>
     <i class="fa-brands fa-google" />
   </CircleButton>
 
-  <CircleButton on:click={signInGoogle}>
+  <CircleButton on:click={goToEmailAuth}>
     <i class="fa-solid fa-envelope" />
   </CircleButton>
 </div>
@@ -55,16 +58,13 @@
   </div>
 {/if}
 
-{#if import.meta.env.DEV}
-  <!-- <AuthMail /> -->
-{/if}
-
 <style>
-  .other {
+  .pathway {
     min-width: 120px;
     margin: 8px;
+    padding: 0 8px;
     display: inline-flex;
-    justify-content: right;
+    justify-content: center;
     border-top: solid 1px #ccc;
   }
 

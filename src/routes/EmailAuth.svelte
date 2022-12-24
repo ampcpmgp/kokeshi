@@ -1,17 +1,20 @@
 <script>
+  import Box from "../lib/Box.svelte";
+  import Spacer from "../lib/Spacer.svelte";
   import { supabase } from "../supabaseClient";
-  import Box from "./Box.svelte";
 
   let email = "";
   let password = "";
+  let emailToRegister = "";
+  let passwordToRegister = "";
   let success = false;
 
   async function register() {
     success = false;
 
     const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
+      email: emailToRegister,
+      password: passwordToRegister,
     });
 
     if (error) {
@@ -32,25 +35,35 @@
   }
 </script>
 
-<Box title="Login">
+<Box>
   <label for="">Email</label>
   <input type="email" bind:value={email} />
+
+  <Spacer width={12} />
+
   <label for="">Password</label>
   <input type="password" bind:value={password} />
 
-  <br />
-  <button on:click={login}>ログイン</button>
+  <Spacer height={8} />
+
+  <button on:click={login}>ログインする</button>
 </Box>
 
-<Box title="Register">
+<Box>
   <label for="">Email</label>
-  <input type="email" bind:value={email} />
-  <label for="">Password</label>
-  <input type="password" bind:value={password} />
+  <input type="email" bind:value={emailToRegister} />
 
-  <br />
+  <Spacer width={12} />
+
+  <label for="">Password</label>
+  <input type="password" bind:value={passwordToRegister} />
+
+  <Spacer height={8} />
+
   <button on:click={register}>登録する</button>
-  <br />
+
+  <Spacer height={4} />
+
   {#if success}
     Success!
   {/if}
