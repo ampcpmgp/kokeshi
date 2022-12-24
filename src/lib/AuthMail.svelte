@@ -32,7 +32,7 @@
   }
 </script>
 
-<Box title="Login" wip>
+<Box title="Login">
   <label for="">Email</label>
   <input type="email" bind:value={email} />
   <label for="">Password</label>
@@ -42,7 +42,7 @@
   <button on:click={login}>ログイン</button>
 </Box>
 
-<Box title="Register" wip>
+<Box title="Register">
   <label for="">Email</label>
   <input type="email" bind:value={email} />
   <label for="">Password</label>
