@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { push } from "svelte-spa-router";
+  import { link, push } from "svelte-spa-router";
   import { supabase } from "../supabaseClient";
   import { onMount } from "svelte";
   import CircleButton from "./CircleButton.svelte";
@@ -52,13 +52,25 @@
   </CircleButton>
 </div>
 
-{#if inCampaign}
-  <div class="balloon">
-    <p>100円分のクレジットを手にする</p>
-  </div>
-{/if}
+<footer>
+  <a href="/law" use:link>特定商取引法に基づく表記</a>
+  <a href="/about" use:link>事業者情報</a>
+</footer>
 
 <style>
+  footer {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    display: inline-flex;
+    place-content: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-top: solid 1px #555;
+    font-size: 0.8rem;
+  }
+
   .pathway {
     min-width: 120px;
     margin: 8px;
