@@ -1,4 +1,5 @@
 <script>
+  import { push } from "svelte-spa-router";
   import Box from "../lib/Box.svelte";
   import Spacer from "../lib/Spacer.svelte";
   import { supabase } from "../supabaseClient";
@@ -32,6 +33,8 @@
     });
 
     if (error) alert(error);
+
+    push("/");
   }
 </script>
 
