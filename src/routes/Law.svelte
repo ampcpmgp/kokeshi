@@ -25,35 +25,27 @@
       </tr>
       <tr>
         <td>ホームページURL</td>
-        <td>TODO</td>
+        <td>https://am-public.vercel.app/</td>
       </tr>
       <tr>
         <td>販売価格</td>
-        <td>TODO 商品紹介ページをご参照ください。</td>
+        <td>送信文字・返却文字の合計が10文字当たり0.12円</td>
       </tr>
       <tr>
         <td>商品代金以外の必要料金</td>
-        <td>TODO なし</td>
+        <td>なし</td>
       </tr>
       <tr>
         <td>引き渡し時期</td>
-        <td>TODO ご注文から3日以内にお届け致します。</td>
+        <td>原則即時</td>
       </tr>
       <tr>
         <td>お支払方法</td>
         <td>PayPay (予定)</td>
       </tr>
       <tr>
-        <td>返品・交換・キャンセル</td>
-        <td>TODO 購入から２週間以内なら可能。</td>
-      </tr>
-      <tr>
-        <td>返品期限</td>
-        <td>TODO 商品購入より２週間以内にご連絡下さい。</td>
-      </tr>
-      <tr>
-        <td>返品送料</td>
-        <td>TODO お客様のご負担となります。</td>
+        <td>キャンセル</td>
+        <td>ご購入手続き後のキャンセルはお受けできません。</td>
       </tr>
     </tbody>
   </table>
