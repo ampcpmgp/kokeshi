@@ -13,3 +13,17 @@ export const tokenP = supabase.auth.getSession().then(({ data, error }) => {
 	}
 	return data.session.access_token
 })
+
+export async function getToken () {
+	const {data, error} = await supabase.auth.getSession()
+	
+	if (error || !data.session) {
+		console.info(error);
+		console.info(data);
+		
+		push("/")
+		return;
+	}
+
+	return data.session.access_token
+}
