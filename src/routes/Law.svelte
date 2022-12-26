@@ -17,7 +17,7 @@
       </tr>
       <tr>
         <td>受付時間</td>
-        <td>14:30 ~ 18:00</td>
+        <td>14:30 ~ 17:30</td>
       </tr>
       <tr>
         <td>メールアドレス</td>
@@ -25,27 +25,44 @@
       </tr>
       <tr>
         <td>ホームページURL</td>
-        <td>https://am-public.vercel.app/</td>
+        <td>
+          <a
+            href="https://am-public.vercel.app/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            https://am-public.vercel.app/
+          </a>
+        </td>
       </tr>
       <tr>
-        <td>販売価格</td>
-        <td>送信文字・返却文字の合計が10文字当たり0.12円</td>
+        <td>お支払方法</td>
+        <td>PayPay (予定) にて100円より</td>
+      </tr>
+      <tr>
+        <td>返金</td>
+        <td>
+          AI解析前であれば、返金額の5%と650円の手数料がかかります。ご指定の銀行口座に原則5営業日以内にお返しいたします。
+        </td>
+      </tr>
+      <tr>
+        <td>価格</td>
+        <td>
+          AI解析時における送信文字・返却文字の合計が10文字当たり0.12円<br />
+          (1回当たりの最大解析文字数は3000文字で、その場合の金額は36円となります)
+        </td>
+      </tr>
+      <tr>
+        <td>キャンセル</td>
+        <td>AI解析後のキャンセルはお受けできません</td>
       </tr>
       <tr>
         <td>商品代金以外の必要料金</td>
         <td>なし</td>
       </tr>
       <tr>
-        <td>引き渡し時期</td>
+        <td>結果取得時期</td>
         <td>原則即時</td>
-      </tr>
-      <tr>
-        <td>お支払方法</td>
-        <td>PayPay (予定)</td>
-      </tr>
-      <tr>
-        <td>キャンセル</td>
-        <td>AI解析後のキャンセルはお受けできません</td>
       </tr>
     </tbody>
   </table>
