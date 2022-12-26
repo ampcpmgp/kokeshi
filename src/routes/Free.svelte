@@ -1,18 +1,22 @@
 <script>
-  import { supabase, tokenP } from "../supabaseClient";
-  import { getMaxToken, getToken } from "../utils/token";
+  import { onMount } from "svelte";
+  import { authenticate, supabase } from "../supabaseClient";
+  import { getMaxToken, convertToToken } from "../utils/token";
 
   let message = ``;
   let result = "";
   let executing = false;
   $: prompt = message;
   $: executeDisabled = executing || message.length === 0;
-  $: messageToken = getToken(message);
+  $: messageToken = convertToToken(message);
   $: max_tokens = getMaxToken(messageToken);
+
+  onMount(() => {
+    authenticate();
+  });
 
   async function onExecute() {
     executing = true;
-    const token = tokenP;
     const { data, error } = await supabase.functions.invoke("openai", {
       body: { prompt, max_tokens },
     });

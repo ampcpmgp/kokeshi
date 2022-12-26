@@ -1,5 +1,6 @@
 <script>
-  import { supabase, tokenP } from "./../supabaseClient";
+  import { onMount } from "svelte";
+  import { supabase, authenticate } from "./../supabaseClient";
 
   const pre = "次のチャットの感情を絵文字で分類してください:";
   const suf = "感情:";
@@ -11,9 +12,12 @@
   $: prompt = `${pre}\n${message}\n${suf}`;
   $: executeDisabled = executing || message.length === 0;
 
+  onMount(() => {
+    authenticate();
+  });
+
   async function onExecute() {
     executing = true;
-    const token = tokenP;
     const { data, error } = await supabase.functions.invoke("openai", {
       body: { prompt, max_tokens },
     });

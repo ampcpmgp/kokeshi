@@ -5,16 +5,8 @@ const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey)
-export const tokenP = supabase.auth.getSession().then(({ data, error }) => {
-	if (error) throw error
-	if (!data.session) {
-		push("/")
-		return;
-	}
-	return data.session.access_token
-})
 
-export async function getToken () {
+export async function authenticate () {
 	const {data, error} = await supabase.auth.getSession()
 	
 	if (error || !data.session) {
@@ -24,6 +16,4 @@ export async function getToken () {
 		push("/")
 		return;
 	}
-
-	return data.session.access_token
 }
