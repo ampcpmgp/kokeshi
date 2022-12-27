@@ -54,7 +54,10 @@
 
 <footer>
   <a href="/law" use:link>特定商取引法に基づく表記</a>
-  <a href="/about" use:link>事業者情報</a>
+  <a href="https://am-public.vercel.app/" target="_blank" rel="noreferrer"
+    >事業者情報
+    <i class="fa-solid fa-arrow-up-right-from-square" />
+  </a>
 </footer>
 
 <style>
