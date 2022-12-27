@@ -38,36 +38,45 @@
   }
 </script>
 
-<Box>
-  <label for="">Email</label>
-  <input type="email" bind:value={email} />
+<main>
+  <Box>
+    <label for="">Email</label>
+    <input type="email" bind:value={email} />
 
-  <Spacer width={12} />
+    <Spacer width={12} />
 
-  <label for="">Password</label>
-  <input type="password" bind:value={password} />
+    <label for="">Password</label>
+    <input type="password" bind:value={password} />
 
-  <Spacer height={8} />
+    <Spacer height={8} />
 
-  <button on:click={login}>ログインする</button>
-</Box>
+    <button on:click={login}>ログインする</button>
+  </Box>
 
-<Box>
-  <label for="">Email</label>
-  <input type="email" bind:value={emailToRegister} />
+  <Box>
+    <label for="">Email</label>
+    <input type="email" bind:value={emailToRegister} />
 
-  <Spacer width={12} />
+    <Spacer width={12} />
 
-  <label for="">Password</label>
-  <input type="password" bind:value={passwordToRegister} />
+    <label for="">Password</label>
+    <input type="password" bind:value={passwordToRegister} />
 
-  <Spacer height={8} />
+    <Spacer height={8} />
 
-  <button on:click={register}>登録する</button>
+    <button on:click={register}>登録する</button>
 
-  <Spacer height={4} />
+    <Spacer height={4} />
 
-  {#if success}
-    Success!
-  {/if}
-</Box>
+    {#if success}
+      Success!
+    {/if}
+  </Box>
+</main>
+
+<style>
+  main {
+    display: grid;
+    place-content: center;
+  }
+</style>

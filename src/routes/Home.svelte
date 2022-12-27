@@ -25,3 +25,10 @@
     <Main />
   {/if}
 </main>
+
+<style>
+  main {
+    display: grid;
+    place-content: center;
+  }
+</style>

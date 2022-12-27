@@ -62,5 +62,7 @@
   .result {
     border-radius: 8px;
     border: solid 1px #ccc;
+    font-size: 60px;
+    line-height: 90px;
   }
 </style>
