@@ -44,10 +44,12 @@ h1 {
 #app {
   width: 1280px;
   max-width: 100%;
+  min-height: 100vh;
   box-sizing: border-box;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  display: grid;
 }
 
 button {

@@ -7,13 +7,13 @@
 <main>
   <div>
     <a href="/emotion" use:link>
-      <button>感情判定 😄 (0.2~0.8円)</button>
+      <button>感情判定 😄</button>
     </a>
   </div>
 
   <div>
     <a href="/free" use:link>
-      <button>自由入力 💬 (0.2~22円)</button>
+      <button>自由入力 💬</button>
     </a>
   </div>
 

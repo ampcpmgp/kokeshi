@@ -46,7 +46,9 @@
   <h2>Input</h2>
   <textarea bind:value={message} placeholder="" />
 
-  <button on:click={onExecute} disabled={executeDisabled}>実行</button>
+  <button on:click={onExecute} disabled={executeDisabled}>
+    {executing ? "実行中.." : "実行"}
+  </button>
 
   <h2>Result</h2>
   <div class="result">{result}</div>
@@ -72,5 +74,6 @@
     border-radius: 8px;
     border: solid 1px #ccc;
     white-space: pre-wrap;
+    flex: 1;
   }
 </style>
