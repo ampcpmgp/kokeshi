@@ -3,6 +3,7 @@
   import { supabase } from "../supabaseClient";
   import { onMount } from "svelte";
   import CircleButton from "./CircleButton.svelte";
+  import Footer from "./Footer.svelte";
 
   // キャンペーン中
   let inCampaign = false;
@@ -52,28 +53,9 @@
   </CircleButton>
 </div>
 
-<footer>
-  <a href="/law" use:link>特定商取引法に基づく表記</a>
-  <a href="https://am-public.vercel.app/" target="_blank" rel="noreferrer"
-    >事業者情報
-    <i class="fa-solid fa-arrow-up-right-from-square" />
-  </a>
-</footer>
+<Footer />
 
 <style>
-  footer {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    display: inline-flex;
-    place-content: center;
-    gap: 8px;
-    padding: 8px 16px;
-    border-top: solid 1px #555;
-    font-size: 0.8rem;
-  }
-
   .pathway {
     min-width: 120px;
     margin: 8px;

@@ -15,4 +15,8 @@
     height: 24px;
     text-align: center;
   }
+
+  input:disabled {
+    cursor: not-allowed;
+  }
 </style>
