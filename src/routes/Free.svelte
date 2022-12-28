@@ -1,6 +1,7 @@
 <script>
   import { onMount } from "svelte";
   import { authenticate, supabase } from "../supabaseClient";
+  import { getErrorMessage } from "../utils/error";
   import { getMaxToken, convertToToken } from "../utils/token";
 
   let message = ``;
@@ -22,8 +23,9 @@
     });
 
     if (error) {
-      executing = false;
-      alert(error?.message);
+      const errorMessage = await getErrorMessage(error);
+      alert(errorMessage);
+
       executing = false;
       throw error;
     }

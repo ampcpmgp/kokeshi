@@ -1,5 +1,6 @@
 <script>
   import { onMount } from "svelte";
+  import { getErrorMessage } from "../utils/error";
   import { supabase, authenticate } from "./../supabaseClient";
 
   const pre = "次のチャットの感情を絵文字で分類してください:";
@@ -23,6 +24,9 @@
     });
 
     if (error) {
+      const errorMessage = await getErrorMessage(error);
+      alert(errorMessage);
+
       executing = false;
       throw error;
     }
