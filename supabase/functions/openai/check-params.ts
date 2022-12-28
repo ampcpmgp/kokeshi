@@ -2,8 +2,9 @@ export interface Params {
   prompt: string;
   max_tokens: number;
 }
+
 // deno-lint-ignore no-explicit-any
-export function checkParams (params: Params | any) {
+export function checkParams (params: Params | any): asserts params is Params {
   if (typeof params.prompt !== "string") throw new Error("Prompt is not a string")
   if (params.prompt.length < 1) throw new Error("Prompt is too short")
   if (params.prompt.length > 2400) throw new Error("Prompt is too long")
