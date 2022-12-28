@@ -1,4 +1,4 @@
-import { MAX_TOKEN, TOKEN_PER_WORD } from "../const/prices";
+import { MAX_TOKEN, TOKEN_PER_WORD } from "../const/token";
 
 export function convertToToken (text: string) {
   return Math.ceil(text.length * TOKEN_PER_WORD);
