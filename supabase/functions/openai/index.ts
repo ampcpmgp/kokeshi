@@ -4,8 +4,9 @@
 
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
-import { corsHeaders } from "../_shared/cors.ts"
-import { checkParams } from "./check-params.ts"
+import { corsHeaders } from "../_shared/utils/cors.ts"
+import { checkCredit } from "./check-credit.ts"
+import { checkBody } from "./check-body.ts"
 
 serve(async (req) => {
   const { method } = req
@@ -18,7 +19,7 @@ serve(async (req) => {
 	const reqData = await req.json()
 
 	try {
-		checkParams(reqData);
+		checkBody(reqData);
 	} catch (error) {
 		return new Response(
 			JSON.stringify({ error: error.message }),
@@ -46,6 +47,22 @@ serve(async (req) => {
 		if (error) throw error
 		if (!user) throw new Error("No User")
 
+		// get balance
+		const { data: balance, error: balanceError } = await supabaseClient.from('balances').select('*').eq('id', user.id).single()
+
+		if (balanceError) throw balanceError
+
+		try {
+			checkCredit(balance.credit, reqData);
+		} catch (error) {
+			return new Response(
+				JSON.stringify({ error: error.message }),
+				{ headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 400 }
+			)
+		}
+		
+		console.log(12)
+	
 	// https://beta.openai.com/docs/api-reference/completions
   const response = await fetch("https://api.openai.com/v1/completions",
 	 {
