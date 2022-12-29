@@ -40,7 +40,10 @@
 </script>
 
 <main>
-  <p>入力したメッセージから意図を推測し、返信されます</p>
+  <p>
+    入力したメッセージから意図を推測し、返信されます。<br />
+    多くの文字が出力されることがありますので、ご注意ください。
+  </p>
 
   <h2>Input</h2>
   <textarea bind:value={message} placeholder="" />

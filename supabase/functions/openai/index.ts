@@ -7,7 +7,7 @@ import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 import { corsHeaders } from "../_shared/utils/cors.ts"
 import { checkCredit } from "./check-credit.ts"
 import { checkBody } from "./check-body.ts"
-import { convertToTokenFromCredit } from "../_shared/utils/price.ts"
+import { getToken } from "./get-token.ts"
 
 serve(async (req) => {
   const { method } = req
@@ -28,18 +28,12 @@ serve(async (req) => {
 		)
 	}
 
-	// Create a Supabase client with the Auth context of the logged in user.
 	const supabaseClient = createClient(
-		// Supabase API URL - env var exported by default.
 		Deno.env.get('SUPABASE_URL') ?? '',
-		// Supabase API ANON KEY - env var exported by default.
 		Deno.env.get('SUPABASE_ANON_KEY') ?? '',
-		// Create client with Auth context of the user that called the function.
-		// This way your row-level-security (RLS) policies are applied.
 		{ global: { headers: { Authorization: req.headers.get('Authorization')! } } }
 	)
 
-    // Now we can get the session or user object
     const {
       data: { user },
 			error
@@ -62,15 +56,8 @@ serve(async (req) => {
 			)
 		}
 
-		const creditToken = convertToTokenFromCredit(balance.credit)
-		console.log("🚀 ~ file: index.ts:66 ~ serve ~ creditToken", creditToken)
-		console.log("🚀 ~ file: index.ts:66 ~ serve ~ balance.credit", balance.credit)
+		const max_tokens = getToken(balance.credit, reqData.prompt)
 
-		return new Response(
-			JSON.stringify({}),
-			{ headers: { ...corsHeaders, "Content-Type": "application/json" } },
-		)
-		
 	// https://beta.openai.com/docs/api-reference/completions
   const response = await fetch("https://api.openai.com/v1/completions",
 	 {
@@ -83,8 +70,7 @@ serve(async (req) => {
 			model: "text-davinci-003",	
 			prompt: reqData.prompt,
 			// default 16
-			// TODO 計算する
-			max_tokens: 3000,
+			max_tokens,
 		})
 	});
 
