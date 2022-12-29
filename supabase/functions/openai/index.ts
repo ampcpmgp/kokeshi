@@ -7,6 +7,7 @@ import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 import { corsHeaders } from "../_shared/utils/cors.ts"
 import { checkCredit } from "./check-credit.ts"
 import { checkBody } from "./check-body.ts"
+import { convertToTokenFromCredit } from "../_shared/utils/price.ts"
 
 serve(async (req) => {
   const { method } = req
@@ -61,8 +62,14 @@ serve(async (req) => {
 			)
 		}
 
-		// TODO getToken
-		// const creditMaxToken = getToken()
+		const creditToken = convertToTokenFromCredit(balance.credit)
+		console.log("🚀 ~ file: index.ts:66 ~ serve ~ creditToken", creditToken)
+		console.log("🚀 ~ file: index.ts:66 ~ serve ~ balance.credit", balance.credit)
+
+		return new Response(
+			JSON.stringify({}),
+			{ headers: { ...corsHeaders, "Content-Type": "application/json" } },
+		)
 		
 	// https://beta.openai.com/docs/api-reference/completions
   const response = await fetch("https://api.openai.com/v1/completions",

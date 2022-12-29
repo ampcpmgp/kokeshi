@@ -1,6 +1,5 @@
-import { PRICE_PER_TOKEN } from "../const/price.ts";
-import { PRICE_PER_WORD } from "../const/price.ts";
+import { TOKEN_PER_PRICE } from "../const/price.ts";
 
-export function getPrice (word = 0, token = 0) {
-  return word * PRICE_PER_WORD + token * PRICE_PER_TOKEN;
+export function convertToTokenFromCredit (credit: number) {
+  return Math.floor(credit * TOKEN_PER_PRICE);
 }
