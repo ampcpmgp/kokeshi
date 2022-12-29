@@ -1,2 +1,2 @@
-export const PRICE_PER_WORD = 0.007;
-export const PRICE_PER_TOKEN = 0.005;
+export const PRICE_PER_WORD = 0.012;
+export const PRICE_PER_TOKEN = PRICE_PER_WORD*(750/1000);

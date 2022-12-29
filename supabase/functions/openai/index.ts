@@ -53,16 +53,17 @@ serve(async (req) => {
 		if (balanceError) throw balanceError
 
 		try {
-			checkCredit(balance.credit, reqData);
+			checkCredit(balance.credit);
 		} catch (error) {
 			return new Response(
 				JSON.stringify({ error: error.message }),
 				{ headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 400 }
 			)
 		}
+
+		// TODO getToken
+		// const creditMaxToken = getToken()
 		
-		console.log(12)
-	
 	// https://beta.openai.com/docs/api-reference/completions
   const response = await fetch("https://api.openai.com/v1/completions",
 	 {
