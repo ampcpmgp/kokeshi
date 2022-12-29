@@ -20,21 +20,3 @@ Deno.test("throw error when prompt.length is > 2400", () => {
 
   assertThrows(check, Error, "Prompt is too long");
 });
-
-Deno.test("throw error when max_tokens is not number", () => {
-  const check = () => checkBody({ prompt: "a", max_tokens: "a" });
-
-  assertThrows(check, Error, "Max tokens is not a number");
-});
-
-Deno.test("throw error when max_tokens is < 1", () => {
-  const check = () => checkBody({ prompt: "a", max_tokens: 0 });
-
-  assertThrows(check, Error, "Max tokens is too small");
-});
-
-Deno.test("throw error when max_tokens is > 4000", () => {
-  const check = () => checkBody({ prompt: "a", max_tokens: 4001 });
-
-  assertThrows(check, Error, "Max tokens is too big");
-});

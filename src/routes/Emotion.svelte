@@ -8,7 +8,6 @@
 
   let message = ``;
   let result = "";
-  let max_tokens = 64;
   let executing = false;
   $: prompt = `${pre}\n${message}\n${suf}`;
   $: executeDisabled = executing || message.length === 0;
@@ -20,7 +19,7 @@
   async function onExecute() {
     executing = true;
     const { data, error } = await supabase.functions.invoke("openai", {
-      body: { prompt, max_tokens },
+      body: { prompt },
     });
 
     if (error) {

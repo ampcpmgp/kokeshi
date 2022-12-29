@@ -76,7 +76,8 @@ serve(async (req) => {
 			model: "text-davinci-003",	
 			prompt: reqData.prompt,
 			// default 16
-			max_tokens: reqData.max_tokens ?? 64,
+			// TODO 計算する
+			max_tokens: 3000,
 		})
 	});
 

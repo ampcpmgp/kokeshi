@@ -9,8 +9,6 @@
   let executing = false;
   $: prompt = message;
   $: executeDisabled = executing || message.length === 0;
-  $: messageToken = convertToToken(message);
-  $: max_tokens = getMaxToken(messageToken);
 
   onMount(() => {
     authenticate();
@@ -19,7 +17,7 @@
   async function onExecute() {
     executing = true;
     const { data, error } = await supabase.functions.invoke("openai", {
-      body: { prompt, max_tokens },
+      body: { prompt },
     });
 
     if (error) {
