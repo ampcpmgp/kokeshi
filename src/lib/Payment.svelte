@@ -1,12 +1,16 @@
 <script lang="ts">
   let price: 100 | 500 | 2000 = 100;
+
+  let credit = 100.0;
 </script>
 
 <main>
+  <p>[残高] {credit}円</p>
+
+  <p>[入金]</p>
+
   <div class="price-box">
     <div class="price" class:active={price === 100}>100円</div>
-    <div class="price" class:active={price === 500}>500円</div>
-    <div class="price" class:active={price === 2000}>2000円</div>
   </div>
 
   <button disabled>PayPay ( 工事中👷)</button>
