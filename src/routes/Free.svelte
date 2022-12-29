@@ -2,7 +2,6 @@
   import { onMount } from "svelte";
   import { authenticate, supabase } from "../supabaseClient";
   import { getErrorMessage } from "../utils/error";
-  import { getMaxToken, convertToToken } from "../utils/token";
 
   let message = ``;
   let result = "";
