@@ -1,7 +1,35 @@
 <script lang="ts">
-  let price: 100 | 500 | 2000 = 100;
+  import { onDestroy, onMount } from "svelte";
+  import { supabase } from "../supabaseClient";
 
-  let credit = 100.0;
+  let price: 100 | 500 | 2000 = 100;
+  let credit = 0.0;
+
+  const query = supabase.from("balances");
+  const subscriber = supabase
+    .channel("*")
+    .on(
+      "postgres_changes",
+      { event: "*", schema: "public", table: "balances" },
+      (payload) => {
+        credit = (payload.new as any).credit;
+      }
+    );
+
+  async function getCredit() {
+    const { data } = await query.select("*");
+
+    return data[0].credit;
+  }
+
+  onMount(async () => {
+    credit = await getCredit();
+    subscriber.subscribe();
+  });
+
+  onDestroy(() => {
+    subscriber.unsubscribe();
+  });
 </script>
 
 <main>
