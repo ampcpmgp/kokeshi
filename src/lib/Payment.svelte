@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onDestroy, onMount } from "svelte";
   import { supabase } from "../supabaseClient";
+  import Spacer from "./Spacer.svelte";
 
   let price: 100 | 500 | 2000 = 100;
   let credit = 0.0;
@@ -33,10 +34,12 @@
 </script>
 
 <main>
-  <p>[残高] {credit}円</p>
+  <div>[残高]</div>
+  <span>{credit}円</span>
 
-  <p>[入金]</p>
+  <Spacer height={12} />
 
+  <div>[入金]</div>
   <div class="price-box">
     <div class="price" class:active={price === 100}>100円</div>
   </div>
