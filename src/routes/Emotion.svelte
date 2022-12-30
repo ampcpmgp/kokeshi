@@ -1,62 +1,37 @@
 <script>
-  import { onMount } from "svelte";
-  import { getErrorMessage } from "../utils/error";
-  import { convertToTokenFromPrompt, getPrice } from "../utils/price";
-  import { supabase, authenticate } from "./../supabaseClient";
+  import { init } from "../states/openai";
 
-  const pre = "次のチャットの感情を絵文字で分類してください:";
-  const suf = "感情:";
+  const {
+    pre,
+    suf,
+    message,
+    executing,
+    fixedPrice,
+    executeDisabled,
+    estimatedPrice,
+    result,
+    analyzeMessage,
+  } = init();
 
-  let message = ``;
-  let result = "";
-  let executing = false;
-  let fixedPrice = 0;
-  $: prompt = `${pre}\n${message}\n${suf}`;
-  $: executeDisabled = executing || message.length === 0;
-  $: estimatedToken = convertToTokenFromPrompt(prompt) + 5;
-  $: estimatedPrice = getPrice(estimatedToken);
-
-  onMount(() => {
-    authenticate();
-  });
-
-  async function onExecute() {
-    executing = true;
-    fixedPrice = 0;
-    const { data, error } = await supabase.functions.invoke("openai", {
-      body: { prompt },
-    });
-
-    if (error) {
-      const errorMessage = await getErrorMessage(error);
-      alert(errorMessage);
-
-      executing = false;
-      throw error;
-    }
-
-    const choice = data.choices[0];
-    result = choice.text.trim();
-    executing = false;
-    fixedPrice = data.price;
-  }
+  $pre = "次のチャットの感情を絵文字で分類してください:";
+  $suf = "感情:";
 </script>
 
 <main>
   <p>入力したメッセージの感情を絵文字で判定することが出来ます。</p>
 
   <h2>Input</h2>
-  <textarea bind:value={message} placeholder="" />
+  <textarea bind:value={$message} placeholder="" />
 
-  <button on:click={onExecute} disabled={executeDisabled}>
-    {executing ? "実行中.." : "実行"}</button
-  >
+  <button on:click={analyzeMessage} disabled={$executeDisabled}>
+    {$executing ? "実行中.." : "実行"}
+  </button>
 
   <h2>Result</h2>
-  <div class="result">{result}</div>
+  <div class="result">{$result}</div>
 
-  <div class="price">推定価格: {estimatedPrice}円</div>
-  <div class="price">確定価格: {fixedPrice}円</div>
+  <div class="price">推定価格: {$estimatedPrice}円</div>
+  <div class="price">確定価格: {$fixedPrice}円</div>
 </main>
 
 <style>

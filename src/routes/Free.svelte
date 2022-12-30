@@ -1,45 +1,17 @@
 <script>
   import { onMount } from "svelte";
+  import { init } from "../states/openai";
   import { authenticate, supabase } from "../supabaseClient";
   import { getErrorMessage } from "../utils/error";
 
-  let message = ``;
-  let result = "";
-  let executing = false;
-  let fixedPrice = 0;
-  $: prompt = message;
-  $: executeDisabled = executing || message.length === 0;
-
-  onMount(() => {
-    authenticate();
-  });
-
-  async function onExecute() {
-    executing = true;
-    fixedPrice = 0;
-    const { data, error } = await supabase.functions.invoke("openai", {
-      body: { prompt },
-    });
-
-    if (error) {
-      const errorMessage = await getErrorMessage(error);
-      alert(errorMessage);
-
-      executing = false;
-      throw error;
-    }
-
-    if (data.error) {
-      alert(data.error?.message);
-      executing = false;
-      throw new Error(data.error?.message);
-    }
-
-    const choice = data.choices[0];
-    result = choice.text.trim();
-    executing = false;
-    fixedPrice = data.price;
-  }
+  const {
+    message,
+    executing,
+    fixedPrice,
+    executeDisabled,
+    result,
+    analyzeMessage,
+  } = init();
 </script>
 
 <main>
@@ -49,15 +21,15 @@
   </p>
 
   <h2>Input</h2>
-  <textarea bind:value={message} placeholder="" />
+  <textarea bind:value={$message} placeholder="" />
 
-  <button on:click={onExecute} disabled={executeDisabled}>
-    {executing ? "実行中.." : "実行"}
+  <button on:click={analyzeMessage} disabled={$executeDisabled}>
+    {$executing ? "実行中.." : "実行"}
   </button>
 
   <h2>Result</h2>
-  <div class="result">{result}</div>
-  <div class="price">確定価格: {fixedPrice}円</div>
+  <div class="result">{$result}</div>
+  <div class="price">確定価格: {$fixedPrice}円</div>
 </main>
 
 <style>

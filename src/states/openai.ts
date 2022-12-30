@@ -1,20 +1,20 @@
-import { derived, writable } from "svelte/store";
-import { supabase } from "../supabaseClient";
+import { onMount } from "svelte";
+import { derived, get, writable } from "svelte/store";
+import { authenticate, supabase } from "../supabaseClient";
 import { getErrorMessage } from "../utils/error";
 import { convertToTokenFromPrompt, getPrice } from "../utils/price";
 
-interface Data {
-  pre?: string;
-  suf?: string;
-}
-
-export function init(data: Data) {
-  const pre = writable(data.pre ?? "");
+export function init() {
+  const pre = writable("");
   const message = writable("");
-  const suf = writable(data.suf ?? "");
+  const suf = writable("");
   const result = writable("");
   const executing = writable(false);
   const fixedPrice = writable(0);
+
+  onMount(() => {
+    authenticate();
+  });
 
   const prompt = derived(
     [pre, message, suf],
@@ -40,7 +40,7 @@ export function init(data: Data) {
     fixedPrice.set(0);
 
     const { data, error } = await supabase.functions.invoke("openai", {
-      body: { prompt },
+      body: { prompt: get(prompt) },
     });
 
     if (error) {
