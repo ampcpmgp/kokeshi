@@ -16,8 +16,6 @@
   $: estimatedToken = convertToTokenFromPrompt(prompt) + 5;
   $: estimatedPrice = getPrice(estimatedToken);
 
-  $: console.log(estimatedToken);
-
   onMount(() => {
     authenticate();
   });
