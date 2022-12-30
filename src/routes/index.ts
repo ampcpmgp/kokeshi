@@ -4,6 +4,7 @@ import Free from './Free.svelte'
 import EmailAuth from './EmailAuth.svelte'
 import Law from './Law.svelte'
 import About from './About.svelte'
+import HowToUse from './HowToUse.svelte'
 
 export const routes = {
     // Exact path
@@ -13,6 +14,7 @@ export const routes = {
 		"/email-auth": EmailAuth,
 		"/law": Law,
 		"/about": About,
+		"/how-to-use": HowToUse,
 
     // Catch-all
     '*': Home,

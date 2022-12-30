@@ -4,6 +4,7 @@
 
 <footer>
   <a href="/law" use:link>特定商取引法に基づく表記</a>
+  <a href="/how-to-use" use:link>ご利用の流れ</a>
   <a href="https://am-public.vercel.app/" target="_blank" rel="noreferrer"
     >事業者情報
     <i class="fa-solid fa-arrow-up-right-from-square" />
