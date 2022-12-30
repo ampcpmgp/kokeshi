@@ -1,5 +1,6 @@
 <script>
-  import { init } from "../states/openai";
+  import Price from "../lib/Price.svelte";
+import { init } from "../states/openai";
 
   const {
     pre,
@@ -30,16 +31,11 @@
   <h2>Result</h2>
   <div class="result">{$result}</div>
 
-  <div class="price">推定価格: {$estimatedPrice}円</div>
-  <div class="price">確定価格: {$fixedPrice}円</div>
+  <Price kind="estimated" price={$estimatedPrice} />
+  <Price kind="fixed" price={$fixedPrice} />
 </main>
 
 <style>
-  .price {
-    font-size: 14px;
-    color: #ccc;
-  }
-
   main {
     display: flex;
     flex-direction: column;

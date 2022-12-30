@@ -1,8 +1,6 @@
 <script>
-  import { onMount } from "svelte";
+	import Price from './../lib/Price.svelte';
   import { init } from "../states/openai";
-  import { authenticate, supabase } from "../supabaseClient";
-  import { getErrorMessage } from "../utils/error";
 
   const {
     message,
@@ -29,15 +27,10 @@
 
   <h2>Result</h2>
   <div class="result">{$result}</div>
-  <div class="price">確定価格: {$fixedPrice}円</div>
+  <Price kind="fixed" price={$fixedPrice} />
 </main>
 
 <style>
-  .price {
-    font-size: 14px;
-    color: #ccc;
-  }
-
   main {
     display: flex;
     flex-direction: column;

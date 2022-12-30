@@ -27,6 +27,7 @@
     "openai": "^3.1.0",
     "stripe": "^11.4.0",
     "supabase": "^1.26.5",
-    "svelte-spa-router": "^3.3.0"
+    "svelte-spa-router": "^3.3.0",
+    "ts-pattern": "^4.0.6"
   }
 }
