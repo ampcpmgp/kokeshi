@@ -1,4 +1,5 @@
 <script>
+  import { link } from "svelte-spa-router";
   import Spacer from "../lib/Spacer.svelte";
 </script>
 
@@ -8,13 +9,17 @@
   <p>1. アカウント登録を行う</p>
   <img src="/how-to-use/login.png" alt="Click to login button" />
   <span class="remark">
-    ※グーグル認証、メールアドレス認証のいずれかを選択できます。</span
+    グーグル認証、メールアドレス認証のいずれかを選択できます。</span
   >
   <Spacer height={24} />
 
   <p>2. 入金する</p>
   <img src="/how-to-use/payment.png" alt="Payment" />
-  <span class="remark">※現在工事中</span>
+  <span class="remark"
+    >※現在工事中
+    <br />
+    入金後、残高に反映されます。
+  </span>
   <Spacer height={24} />
 
   <p>3. 解析ページに移動する</p>
@@ -23,6 +28,13 @@
 
   <p>4. メッセージを入力して実行する</p>
   <img src="/how-to-use/execute.png" alt="Input message and execute" />
+  <Spacer height={24} />
+
+  <p>5. 利用料金を確認する</p>
+  <span class="remark">
+    詳しい利用料金は<a href="/law" use:link>特定商取引法に基づく表記</a
+    >をご覧ください。
+  </span>
   <Spacer height={24} />
 </main>
 
