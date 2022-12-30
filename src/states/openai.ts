@@ -18,7 +18,7 @@ export function init() {
 
   const prompt = derived(
     [pre, message, suf],
-    ([$pre, $message, $suf]) => $pre + $message + $suf
+    ([$pre, $message, $suf]) => `${$pre}\n${$message}\n${$suf}`
   );
 
   const executeDisabled = derived(

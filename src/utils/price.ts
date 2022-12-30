@@ -9,7 +9,7 @@ export function convertToTokenFromCredit(credit: number) {
 }
 
 export function convertToTokenFromPrompt(prompt: string) {
-  return Math.floor(prompt.length * TOKEN_PER_WORD);
+  return Math.ceil(prompt.length * TOKEN_PER_WORD);
 }
 
 export function getPrice(token: number) {
