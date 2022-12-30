@@ -6,6 +6,7 @@
   let message = ``;
   let result = "";
   let executing = false;
+  let fixedPrice = 0;
   $: prompt = message;
   $: executeDisabled = executing || message.length === 0;
 
@@ -15,6 +16,7 @@
 
   async function onExecute() {
     executing = true;
+    fixedPrice = 0;
     const { data, error } = await supabase.functions.invoke("openai", {
       body: { prompt },
     });
@@ -34,8 +36,9 @@
     }
 
     const choice = data.choices[0];
-    result = choice.text;
+    result = choice.text.trim();
     executing = false;
+    fixedPrice = data.price;
   }
 </script>
 
@@ -54,9 +57,15 @@
 
   <h2>Result</h2>
   <div class="result">{result}</div>
+  <div class="price">確定価格: {fixedPrice}円</div>
 </main>
 
 <style>
+  .price {
+    font-size: 14px;
+    color: #ccc;
+  }
+
   main {
     display: flex;
     flex-direction: column;

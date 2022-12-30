@@ -93,7 +93,7 @@ serve(async (req) => {
       .eq("id", user.id)
       .single();
 
-    return new Response(JSON.stringify(data), {
+    return new Response(JSON.stringify({ ...data, price }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   } catch (error) {

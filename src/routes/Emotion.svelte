@@ -1,6 +1,7 @@
 <script>
   import { onMount } from "svelte";
   import { getErrorMessage } from "../utils/error";
+  import { convertToTokenFromPrompt, getPrice } from "../utils/price";
   import { supabase, authenticate } from "./../supabaseClient";
 
   const pre = "次のチャットの感情を絵文字で分類してください:";
@@ -9,8 +10,13 @@
   let message = ``;
   let result = "";
   let executing = false;
+  let fixedPrice = 0;
   $: prompt = `${pre}\n${message}\n${suf}`;
   $: executeDisabled = executing || message.length === 0;
+  $: estimatedToken = convertToTokenFromPrompt(prompt) + 5;
+  $: estimatedPrice = getPrice(estimatedToken);
+
+  $: console.log(estimatedToken);
 
   onMount(() => {
     authenticate();
@@ -18,6 +24,7 @@
 
   async function onExecute() {
     executing = true;
+    fixedPrice = 0;
     const { data, error } = await supabase.functions.invoke("openai", {
       body: { prompt },
     });
@@ -31,8 +38,9 @@
     }
 
     const choice = data.choices[0];
-    result = choice.text;
+    result = choice.text.trim();
     executing = false;
+    fixedPrice = data.price;
   }
 </script>
 
@@ -48,9 +56,17 @@
 
   <h2>Result</h2>
   <div class="result">{result}</div>
+
+  <div class="price">推定価格: {estimatedPrice}円</div>
+  <div class="price">確定価格: {fixedPrice}円</div>
 </main>
 
 <style>
+  .price {
+    font-size: 14px;
+    color: #ccc;
+  }
+
   main {
     display: flex;
     flex-direction: column;
