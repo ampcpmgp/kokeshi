@@ -60,8 +60,8 @@
 
   textarea,
   .result {
-    width: 600px;
-    max-width: 80%;
+    width: 100%;
+    max-width: 600px;
     height: 140px;
   }
 

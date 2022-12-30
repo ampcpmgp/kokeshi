@@ -42,7 +42,7 @@
 <main>
   <p>
     入力したメッセージから意図を推測し、返信されます。<br />
-    多くの文字が出力されることがありますので、ご注意ください。
+    多くの文字が出力される場合、10~20秒ほどかかることがあります。
   </p>
 
   <h2>Input</h2>
@@ -66,8 +66,8 @@
 
   textarea,
   .result {
-    width: 600px;
-    max-width: 80%;
+    width: 100%;
+    max-width: 600px;
     min-height: 140px;
     padding: 12px;
     font-size: 18px;
