@@ -18,7 +18,7 @@
   <span class="remark"
     >※現在工事中
     <br />
-    入金後、残高に反映されます。
+    ①で入金後、②の残高に反映されます。
   </span>
   <Spacer height={24} />
 
@@ -28,9 +28,13 @@
 
   <p>4. メッセージを入力して実行する</p>
   <img src="/how-to-use/execute.png" alt="Input message and execute" />
+  <span class="remark"
+    >
+    ①に入力し、②の実行を押すと実行されます。<br />
+    その後③に結果が表示され、④に利用料金が表示されます。
+  </span>
   <Spacer height={24} />
 
-  <p>5. 利用料金を確認する</p>
   <span class="remark">
     詳しい利用料金は<a href="/law" use:link>特定商取引法に基づく表記</a
     >をご覧ください。
