@@ -1,5 +1,6 @@
 <script lang="ts">
   import { link } from "svelte-spa-router";
+  import { Emotion, Free } from "../const/analytics-kind";
   import { supabase } from "../supabaseClient";
   import Payment from "./Payment.svelte";
 </script>
@@ -7,13 +8,13 @@
 <main>
   <div>
     <a href="/emotion" use:link>
-      <button>感情判定 😄</button>
+      <button>{Emotion.TITLE} {Emotion.EMOJI}</button>
     </a>
   </div>
 
   <div>
     <a href="/free" use:link>
-      <button>自由入力 💬</button>
+      <button>{Free.TITLE} {Free.EMOJI}</button>
     </a>
   </div>
 
