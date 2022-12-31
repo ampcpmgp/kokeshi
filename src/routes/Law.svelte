@@ -1,5 +1,6 @@
 <script>
   import { Emotion } from "../const/analytics-kind";
+  import { getFunctionMinPrice } from "../utils/price";
 
 </script>
 <h2>特定商取引法に基づく表記</h2>
@@ -57,6 +58,7 @@
           AI解析時における送信文字・返却文字の合計が10文字当たり0.12円<br />
           (1回当たりの最大解析文字数は2700文字で、その場合の金額は33円となります)
           <br />
+          <br />
           また、絵文字や一部の漢字などはマルチバイト文字として扱われます。詳しくは
           <a
             href="https://charactercounttool.com/"
@@ -70,7 +72,13 @@
       <tr>
         <td>機能価格</td>
         <td>
-          上記基本価格に加え、機能ごとに追加料金がかかります。詳しくは「感情判定」などのページ下部にある、「推定価格」をご覧ください。推定価格のない機能に関してまして、機能価格はございません。
+          上記基本価格に加え、機能ごとに以下追加料金がかかります。
+          <br />
+          <br />
+          ・{Emotion.TITLE}: {getFunctionMinPrice(Emotion)}円
+          <br />
+          <br />
+          各機能ページの下部にある「推定価格」を参考にしてください。
         </td>
       </tr>
       <tr>

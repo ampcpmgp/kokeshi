@@ -1,6 +1,7 @@
 <script>
+  import { Emotion } from "../const/analytics-kind";
   import Price from "../lib/Price.svelte";
-import { init } from "../states/openai";
+  import { init } from "../states/openai";
 
   const {
     pre,
@@ -14,8 +15,8 @@ import { init } from "../states/openai";
     analyzeMessage,
   } = init();
 
-  $pre = "次のチャットの感情を絵文字で分類してください:";
-  $suf = "感情:";
+  $pre = Emotion.PRE;
+  $suf = Emotion.SUF;
 </script>
 
 <main>
