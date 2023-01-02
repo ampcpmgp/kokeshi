@@ -13,5 +13,5 @@ export function convertToTokenFromPrompt(prompt: string) {
 }
 
 export function getPrice(token: number) {
-  return Math.floor(token * PRICE_PER_TOKEN * 1000) / 1000;
+  return Math.floor(token * PRICE_PER_TOKEN * 10000) / 10000;
 }

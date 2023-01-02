@@ -5,18 +5,21 @@ export interface AnalyticsKind {
   MODEL: "text-davinci-003" | "text-curie-001";
   KIND: typeof KIND[number];
   MAX_TOKEN: number;
+  PRICE_PER_WORD: number;
 }
 
 export const Emotion: AnalyticsKind = {
   MODEL: "text-curie-001",
   KIND: "emotion",
   MAX_TOKEN: 2048,
+  PRICE_PER_WORD: 0.0012,
 } as const;
 
 export const Free: AnalyticsKind = {
   MODEL: "text-davinci-003",
   KIND: "free",
   MAX_TOKEN: 4000,
+  PRICE_PER_WORD: 0.012,
 } as const;
 
 export const AnalyticsKind = {
