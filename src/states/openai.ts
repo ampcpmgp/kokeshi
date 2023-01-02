@@ -27,9 +27,8 @@ export function init() {
     ([$executing, $message]) => $executing || $message.length === 0
   );
 
-  const minToken = derived(
-    [prompt],
-    ([$prompt]) => convertToTokenFromPrompt($prompt) + 5
+  const minToken = derived([prompt], ([$prompt]) =>
+    convertToTokenFromPrompt($prompt)
   );
 
   const minPrice = derived([minToken], ([$minToken]) => getPrice($minToken));
