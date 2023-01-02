@@ -6,7 +6,6 @@ export interface AnalyticsKind {
   DESCRIPTION: string;
   PRE: string;
   SUF: string;
-  KIND: "emotion" | "free";
   PRICE_PER_WORD: Server.AnalyticsKind["PRICE_PER_WORD"];
 }
 
@@ -16,7 +15,6 @@ export const Emotion: AnalyticsKind = {
   DESCRIPTION: "入力したメッセージの感情を判定することが出来ます。",
   PRE: "次のチャットの感情を分類してください:",
   SUF: "感情:",
-  KIND: "emotion",
   PRICE_PER_WORD: Server.Emotion["PRICE_PER_WORD"],
 } as const;
 
@@ -27,6 +25,10 @@ export const Free: AnalyticsKind = {
 多くの文字が出力される場合、10~20秒ほどかかることがあります。`,
   PRE: "",
   SUF: "",
-  KIND: "free",
   PRICE_PER_WORD: Server.Free["PRICE_PER_WORD"],
 } as const;
+
+export const AnalyticsKind = {
+  free: Emotion,
+  emotion: Free,
+};

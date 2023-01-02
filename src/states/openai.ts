@@ -1,5 +1,6 @@
 import { onMount } from "svelte";
 import { derived, get, writable } from "svelte/store";
+import { AnalyticsKind } from "../const/analytics-kind";
 import { authenticate, supabase } from "../supabaseClient";
 import { getErrorMessage } from "../utils/error";
 import { convertToTokenFromPrompt, getPrice } from "../utils/price";
@@ -12,6 +13,7 @@ export function init() {
   const executing = writable(false);
   const fixedPrice = writable(0);
   const kind = writable("free");
+  const analyticsKind = derived(kind, ($kind) => AnalyticsKind[$kind]);
 
   onMount(() => {
     authenticate();
