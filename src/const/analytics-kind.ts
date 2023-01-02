@@ -1,3 +1,5 @@
+import * as Server from "../../supabase/functions/_shared/const/analytics-kind";
+
 export interface AnalyticsKind {
   TITLE: string;
   EMOJI: string;
@@ -5,6 +7,7 @@ export interface AnalyticsKind {
   PRE: string;
   SUF: string;
   KIND: "emotion" | "free";
+  PRICE_PER_WORD: Server.AnalyticsKind["PRICE_PER_WORD"];
 }
 
 export const Emotion: AnalyticsKind = {
@@ -14,6 +17,7 @@ export const Emotion: AnalyticsKind = {
   PRE: "次のチャットの感情を分類してください:",
   SUF: "感情:",
   KIND: "emotion",
+  PRICE_PER_WORD: Server.Emotion["PRICE_PER_WORD"],
 } as const;
 
 export const Free: AnalyticsKind = {
@@ -24,4 +28,5 @@ export const Free: AnalyticsKind = {
   PRE: "",
   SUF: "",
   KIND: "free",
+  PRICE_PER_WORD: Server.Free["PRICE_PER_WORD"],
 } as const;
