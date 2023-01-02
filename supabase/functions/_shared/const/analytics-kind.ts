@@ -1,7 +1,9 @@
+export const KIND = ["emotion", "free"] as const;
+
 export interface AnalyticsKind {
   // https://beta.openai.com/docs/models/gpt-3
   MODEL: "text-davinci-003" | "text-curie-001";
-  KIND: "emotion" | "free";
+  KIND: typeof KIND[number];
   MAX_TOKEN: number;
 }
 
@@ -16,3 +18,8 @@ export const Free: AnalyticsKind = {
   KIND: "free",
   MAX_TOKEN: 4000,
 } as const;
+
+export const AnalyticsKind = {
+  free: Emotion,
+  emotion: Free,
+};

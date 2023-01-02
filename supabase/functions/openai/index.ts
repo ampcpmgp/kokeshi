@@ -9,6 +9,7 @@ import { checkCredit } from "./check-credit.ts";
 import { checkBody } from "./check-body.ts";
 import { getToken } from "./get-token.ts";
 import { getPrice } from "../_shared/utils/price.ts";
+import { AnalyticsKind } from "../_shared/const/analytics-kind.ts";
 
 serve(async (req) => {
   const { method } = req;
@@ -58,8 +59,13 @@ serve(async (req) => {
         status: 400,
       });
     }
+    const analyticsKind = AnalyticsKind[reqData.kind];
 
-    const max_tokens = getToken(balance.credit, reqData.prompt);
+    const max_tokens = getToken(
+      balance.credit,
+      reqData.prompt,
+      analyticsKind.MAX_TOKEN
+    );
 
     // https://beta.openai.com/docs/api-reference/completions
     const response = await fetch("https://api.openai.com/v1/completions", {
@@ -69,7 +75,7 @@ serve(async (req) => {
         Authorization: `Bearer ${Deno.env.get("OPENAI_API_KEY")}`,
       },
       body: JSON.stringify({
-        model: "text-davinci-003",
+        model: analyticsKind.MODEL,
         prompt: reqData.prompt,
         // default 16
         max_tokens,
