@@ -3,6 +3,7 @@
   import { Emotion, Free } from "../const/analytics-kind";
   import Price from "../lib/Price.svelte";
   import { init } from "../states/openai";
+  import { onMount } from 'svelte';
 
   const {
     pre,
@@ -17,9 +18,11 @@
     analyzeMessage,
   } = init();
 
-  $pre = Emotion.PRE;
-  $suf = Emotion.SUF;
-  $kind = "emotion";
+  onMount(() => {
+    $pre = Emotion.PRE;
+    $suf = Emotion.SUF;
+    $kind = "emotion";
+  })
 </script>
 
 <main>

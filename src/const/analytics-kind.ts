@@ -29,6 +29,6 @@ export const Free: AnalyticsKind = {
 } as const;
 
 export const AnalyticsKind = {
-  free: Emotion,
-  emotion: Free,
+  emotion: Emotion,
+  free: Free,
 };

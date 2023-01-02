@@ -64,7 +64,8 @@ serve(async (req) => {
     const max_tokens = getToken(
       balance.credit,
       reqData.prompt,
-      analyticsKind.MAX_TOKEN
+      analyticsKind.MAX_TOKEN,
+      analyticsKind.PRICE_PER_WORD
     );
 
     // https://beta.openai.com/docs/api-reference/completions
@@ -83,7 +84,10 @@ serve(async (req) => {
     });
 
     const data = await response.json();
-    const price = getPrice(data.usage.total_tokens);
+    const price = getPrice(
+      data.usage.total_tokens,
+      analyticsKind.PRICE_PER_WORD
+    );
 
     const { data: latestBalance } = await supabaseClient
       .from("balances")

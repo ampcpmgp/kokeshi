@@ -1,8 +1,8 @@
-import { AnalyticsKind, KIND } from "../_shared/const/analytics-kind.ts";
+import { KIND } from "../_shared/const/analytics-kind.ts";
 
 export interface Body {
   prompt: string;
-  kind: AnalyticsKind["KIND"];
+  kind: KIND;
 }
 
 // deno-lint-ignore no-explicit-any

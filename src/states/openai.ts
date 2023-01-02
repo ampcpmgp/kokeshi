@@ -34,7 +34,11 @@ export function init() {
     convertToTokenFromPrompt($prompt)
   );
 
-  const minPrice = derived([minToken], ([$minToken]) => getPrice($minToken));
+  const minPrice = derived(
+    [analyticsKind, minToken],
+    ([$analyticsKind, $minToken]) =>
+      getPrice($minToken, $analyticsKind.PRICE_PER_WORD)
+  );
 
   async function analyzeMessage() {
     executing.set(true);
