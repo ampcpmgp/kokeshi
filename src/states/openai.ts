@@ -27,21 +27,19 @@ export function init() {
     ([$executing, $message]) => $executing || $message.length === 0
   );
 
-  const estimatedToken = derived(
+  const minToken = derived(
     [prompt],
     ([$prompt]) => convertToTokenFromPrompt($prompt) + 5
   );
 
-  const estimatedPrice = derived([estimatedToken], ([$estimatedToken]) =>
-    getPrice($estimatedToken)
-  );
+  const minPrice = derived([minToken], ([$minToken]) => getPrice($minToken));
 
   async function analyzeMessage() {
     executing.set(true);
     fixedPrice.set(0);
 
     const { data, error } = await supabase.functions.invoke("openai", {
-      body: { prompt: get(prompt) },
+      body: { prompt: get(prompt), kind: get(kind) },
     });
 
     if (error) {
@@ -68,8 +66,8 @@ export function init() {
     fixedPrice,
     prompt,
     executeDisabled,
-    estimatedToken,
-    estimatedPrice,
+    minToken,
+    minPrice,
     kind,
     analyzeMessage,
   };

@@ -11,7 +11,7 @@
     executing,
     fixedPrice,
     executeDisabled,
-    estimatedPrice,
+    minPrice,
     result,
     kind,
     analyzeMessage,
@@ -37,7 +37,7 @@
   <h2>Result</h2>
   <div class="result">{$result}</div>
 
-  <Price kind="estimated" price={$estimatedPrice} />
+  <Price kind="min" price={$minPrice} />
   <Price kind="fixed" price={$fixedPrice} />
 </main>
 

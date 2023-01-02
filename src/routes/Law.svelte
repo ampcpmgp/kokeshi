@@ -78,7 +78,7 @@
           ・{Emotion.TITLE}: {getFunctionMinPrice(Emotion)}円
           <br />
           <br />
-          各機能ページの下部にある「推定価格」を参考にしてください。
+          各機能ページの下部にある「最低価格」を参考にしてください。
         </td>
       </tr>
       <tr>
