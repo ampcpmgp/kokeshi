@@ -3,6 +3,7 @@ export interface AnalyticsKind {
   EMOJI: string;
   PRE: string;
   SUF: string;
+  KIND: "emotion" | "free";
 }
 
 export const Emotion: AnalyticsKind = {
@@ -10,6 +11,7 @@ export const Emotion: AnalyticsKind = {
   EMOJI: "😄",
   PRE: "次のチャットの感情を絵文字で分類してください:",
   SUF: "感情:",
+  KIND: "emotion",
 } as const;
 
 export const Free: AnalyticsKind = {
@@ -17,4 +19,5 @@ export const Free: AnalyticsKind = {
   EMOJI: "💬",
   PRE: "",
   SUF: "",
+  KIND: "free",
 } as const;

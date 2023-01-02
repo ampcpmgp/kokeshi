@@ -12,11 +12,13 @@
     executeDisabled,
     estimatedPrice,
     result,
+    kind,
     analyzeMessage,
   } = init();
 
   $pre = Emotion.PRE;
   $suf = Emotion.SUF;
+  $kind = Emotion.KIND;
 </script>
 
 <main>

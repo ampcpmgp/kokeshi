@@ -11,6 +11,7 @@ export function init() {
   const result = writable("");
   const executing = writable(false);
   const fixedPrice = writable(0);
+  const kind = writable("free");
 
   onMount(() => {
     authenticate();
@@ -69,6 +70,7 @@ export function init() {
     executeDisabled,
     estimatedToken,
     estimatedPrice,
+    kind,
     analyzeMessage,
   };
 }
