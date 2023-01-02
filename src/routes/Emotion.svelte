@@ -19,7 +19,7 @@
 
   $pre = Emotion.PRE;
   $suf = Emotion.SUF;
-  $kind = Emotion.KIND;
+  $kind = "emotion";
 </script>
 
 <main>
