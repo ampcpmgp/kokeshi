@@ -1,6 +1,8 @@
 <script>
 	import Price from './../lib/Price.svelte';
   import { init } from "../states/openai";
+  import { Free } from '../const/analytics-kind';
+  import Description from '../lib/Description.svelte';
 
   const {
     message,
@@ -13,10 +15,10 @@
 </script>
 
 <main>
-  <p>
-    入力したメッセージから意図を推測し、返信されます。<br />
-    多くの文字が出力される場合、10~20秒ほどかかることがあります。
-  </p>
+  <Description>
+    {Free.DESCRIPTION}
+  </Description>
+
 
   <h2>Input</h2>
   <textarea bind:value={$message} placeholder="" />

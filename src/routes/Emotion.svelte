@@ -1,5 +1,6 @@
 <script>
-  import { Emotion } from "../const/analytics-kind";
+	import Description from './../lib/Description.svelte';
+  import { Emotion, Free } from "../const/analytics-kind";
   import Price from "../lib/Price.svelte";
   import { init } from "../states/openai";
 
@@ -22,7 +23,9 @@
 </script>
 
 <main>
-  <p>入力したメッセージの感情を絵文字で判定することが出来ます。</p>
+  <Description>
+    {Emotion.DESCRIPTION}
+  </Description>
 
   <h2>Input</h2>
   <textarea bind:value={$message} placeholder="" />
