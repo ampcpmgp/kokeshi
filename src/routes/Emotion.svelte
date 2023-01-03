@@ -6,6 +6,7 @@
   import { onMount } from 'svelte';
 
   const {
+    description,
     pre,
     suf,
     message,
@@ -19,6 +20,7 @@
   } = init();
 
   onMount(() => {
+    $description = Emotion.DESCRIPTION;
     $pre = Emotion.PRE;
     $suf = Emotion.SUF;
     $kind = "emotion";
@@ -64,5 +66,6 @@
     border: solid 1px #ccc;
     font-size: 60px;
     line-height: 90px;
+    flex: 1;
   }
 </style>

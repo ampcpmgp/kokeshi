@@ -79,7 +79,7 @@ serve(async (req) => {
         model: analyticsKind.MODEL,
         prompt: reqData.prompt,
         // default 16
-        max_tokens,
+        max_tokens: max_tokens,
       }),
     });
 

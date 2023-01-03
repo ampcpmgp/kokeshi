@@ -12,8 +12,8 @@ export interface AnalyticsKind {
 export const Emotion: AnalyticsKind = {
   TITLE: "感情判定",
   EMOJI: "😄",
-  DESCRIPTION: "入力したメッセージの感情を判定することが出来ます。",
-  PRE: "次のチャットの感情を分類してください:",
+  DESCRIPTION: "次のメッセージの感情を分類します",
+  PRE: "メッセージ:",
   SUF: "感情:",
   PRICE_PER_WORD: Server.Emotion["PRICE_PER_WORD"],
 } as const;

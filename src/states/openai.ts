@@ -7,6 +7,7 @@ import { getErrorMessage } from "../utils/error";
 import { convertToTokenFromPrompt, getPrice } from "../utils/price";
 
 export function init() {
+  const description = writable("");
   const pre = writable("");
   const message = writable("");
   const suf = writable("");
@@ -21,8 +22,9 @@ export function init() {
   });
 
   const prompt = derived(
-    [pre, message, suf],
-    ([$pre, $message, $suf]) => `${$pre}\n${$message}\n${$suf}`
+    [description, pre, message, suf],
+    ([$description, $pre, $message, $suf]) =>
+      `${$description}\n${$pre}${$message}\n${$suf}`
   );
 
   const executeDisabled = derived(
@@ -64,6 +66,7 @@ export function init() {
   }
 
   return {
+    description,
     pre,
     message,
     suf,
