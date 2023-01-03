@@ -29,8 +29,10 @@ export function getPrice(token: number, pricePerWord: number) {
 }
 
 export function getFunctionMinPrice(
-  kind: Pick<AnalyticsKind, "PRE" | "SUF" | "PRICE_PER_WORD">
+  kind: Pick<AnalyticsKind, "DESCRIPTION" | "PRE" | "SUF" | "PRICE_PER_WORD">
 ) {
-  const token = convertToTokenFromPrompt(kind.PRE + "\n" + "\n" + kind.SUF);
+  const token = convertToTokenFromPrompt(
+    kind.DESCRIPTION + "\n" + kind.PRE + "\n" + kind.SUF
+  );
   return getPrice(token, kind.PRICE_PER_WORD);
 }
