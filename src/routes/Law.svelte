@@ -1,8 +1,8 @@
 <script>
   import { Emotion } from "../const/analytics-kind";
   import { getFunctionMinPrice } from "../utils/price";
-
 </script>
+
 <h2>特定商取引法に基づく表記</h2>
 
 <div class="wrapper">

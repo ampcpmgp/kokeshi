@@ -4,7 +4,7 @@
 </script>
 
 <main>
-  <h2>ご利用の流れ</h2>
+  <h2>Kokeshi ご利用の流れ</h2>
 
   <p>1. アカウント登録を行う</p>
   <img src="/how-to-use/login.png" alt="Click to login button" />
@@ -28,8 +28,7 @@
 
   <p>4. メッセージを入力して実行する</p>
   <img src="/how-to-use/execute.png" alt="Input message and execute" />
-  <span class="remark"
-    >
+  <span class="remark">
     ①に入力し、②の実行を押すと実行されます。<br />
     その後③に結果が表示され、④に利用料金が表示されます。
   </span>
