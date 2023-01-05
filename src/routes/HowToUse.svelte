@@ -24,6 +24,10 @@
 
   <p>3. 解析ページに移動する</p>
   <img src="/how-to-use/analytics-page.png" alt="Move to analysis page" />
+  <span class="remark">
+    感情判定：入力したメッセージの感情を絵文字で分類します。<br />
+    自由入力：入力したメッセージの意図を推測し、返信します。
+  </span>
   <Spacer height={24} />
 
   <p>4. メッセージを入力して実行する</p>
