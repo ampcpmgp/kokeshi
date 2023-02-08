@@ -14,6 +14,7 @@ npm i
 
 ```shell
 npx supabase start
+npm run dev
 ```
 
 ### Deploy

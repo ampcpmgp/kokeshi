@@ -20,6 +20,18 @@ export const Emotion: AnalyticsKind = {
   PRICE_PER_WORD: 0.012,
 } as const;
 
+export const Vars: AnalyticsKind = {
+  // curie model
+  // MODEL: "text-curie-001",
+  // MAX_TOKEN: 2048,
+  // PRICE_PER_WORD: 0.0012,
+
+  // davinci model
+  MODEL: "text-davinci-003",
+  MAX_TOKEN: 1000,
+  PRICE_PER_WORD: 0.012,
+} as const;
+
 export const Free: AnalyticsKind = {
   MODEL: "text-davinci-003",
   MAX_TOKEN: 4000,

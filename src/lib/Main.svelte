@@ -1,6 +1,6 @@
 <script lang="ts">
   import { link } from "svelte-spa-router";
-  import { Emotion, Free } from "../const/analytics-kind";
+  import { Emotion, Free, Vars } from "../const/analytics-kind";
   import { supabase } from "../supabaseClient";
   import Payment from "./Payment.svelte";
 </script>
@@ -9,6 +9,12 @@
   <div>
     <a href="/emotion" use:link>
       <button>{Emotion.TITLE} {Emotion.EMOJI}</button>
+    </a>
+  </div>
+
+  <div>
+    <a href="/vars" use:link>
+      <button>{Vars.TITLE} {Vars.EMOJI}</button>
     </a>
   </div>
 
