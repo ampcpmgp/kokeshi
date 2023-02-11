@@ -1,9 +1,10 @@
 <script lang="ts">
   import { onDestroy, onMount } from "svelte";
   import { supabase } from "../supabaseClient";
+  import { pay } from "../utils/payment/payment";
   import Spacer from "./Spacer.svelte";
 
-  let price: 100 | 500 | 2000 = 100;
+  let price: 100 | 1000 | 10000 = 100;
   let credit = 0.0;
 
   const query = supabase.from("balances");
@@ -41,31 +42,50 @@
 
   <div>[入金]</div>
   <div class="price-box">
-    <div class="price" class:active={price === 100}>100円</div>
+    <button
+      class="price"
+      on:click={() => (price = 100)}
+      class:active={price === 100}>100円</button
+    >
+    <button
+      class="price"
+      on:click={() => (price = 1000)}
+      class:active={price === 1000}>1000円</button
+    >
   </div>
 
-  <button disabled>PayPay ( 工事中👷)</button>
+  <button
+    style="display: flex; place-items: center; gap: 8px;"
+    on:click={() => pay("paypay", price)}
+  >
+    PayPay で購入
+    <img
+      width="30px"
+      height="auto"
+      src="/images/paypay_3_rgb.png"
+      alt="PayPay"
+    />
+  </button>
 </main>
 
 <style>
+  .price-box {
+    display: flex;
+    justify-content: space-around;
+    margin: auto;
+    gap: 4px;
+  }
   .price.active {
-    background-color: #555;
-    border-color: #555;
-    border-width: 2px;
+    border: solid 2px white;
+    opacity: 1;
   }
   .price {
-    opacity: 0.3;
-    cursor: not-allowed;
-    border: solid 1px #999;
+    margin: 4px 0;
     padding: 4px 8px;
     display: grid;
     place-items: center;
     border-radius: 12px;
-  }
-  .price-box {
-    display: flex;
-    justify-content: space-around;
-    gap: 4px;
+    opacity: 0.3;
   }
   main {
     display: grid;
