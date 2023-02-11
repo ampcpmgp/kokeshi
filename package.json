@@ -6,7 +6,10 @@
   "scripts": {
     "dev": "concurrently \"npm:dev:*\"",
     "dev:frontend": "vite",
-    "dev:functions": "npx supabase functions serve --env-file .env openai",
+    "dev:functions": "concurrently \"npm:dev:functions:*\"",
+    "dev:functions:openai": "npx supabase functions serve --env-file .env openai",
+    "dev:functions:hello": "npx supabase functions serve --env-file .env hello",
+    "dev:functions:pay": "npx supabase functions serve --env-file .env pay",
     "build": "vite build",
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json"

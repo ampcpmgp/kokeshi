@@ -5,8 +5,6 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { corsHeaders } from "../_shared/utils/cors.ts";
 
-console.log("Hello from Functions!");
-
 serve(async (req) => {
   const { method } = req;
 
