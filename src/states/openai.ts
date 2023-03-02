@@ -60,7 +60,7 @@ export function init() {
 
     const choice = data.choices[0];
 
-    result.set(choice.text.trim());
+    result.set(choice.message.content.trim());
     executing.set(false);
     fixedPrice.set(data.price);
   }
