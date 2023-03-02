@@ -30,8 +30,7 @@ export const Vars: AnalyticsKind = {
 export const Free: AnalyticsKind = {
   TITLE: "自由入力",
   EMOJI: "💬",
-  DESCRIPTION: `入力したメッセージから意図を推測し、返信されます。
-多くの文字が出力される場合、10~20秒ほどかかることがあります。`,
+  DESCRIPTION: `入力したメッセージから意図を推測し、返信されます。`,
   PRE: "",
   SUF: "",
   PRICE_PER_WORD: Server.Free["PRICE_PER_WORD"],
