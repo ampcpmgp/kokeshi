@@ -3,11 +3,10 @@
 // This enables autocomplete, go to definition, etc.
 
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
-import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.2.0";
 import { corsHeaders } from "../_shared/utils/cors.ts";
 import { checkCredit } from "./check-credit.ts";
 import { checkBody } from "./check-body.ts";
-import { getToken } from "./get-token.ts";
 import { getPrice } from "../_shared/utils/price.ts";
 import { AnalyticsKind } from "../_shared/const/analytics-kind.ts";
 
@@ -61,15 +60,8 @@ serve(async (req) => {
     }
     const analyticsKind = AnalyticsKind[reqData.kind];
 
-    const max_tokens = getToken(
-      balance.credit,
-      reqData.prompt,
-      analyticsKind.MAX_TOKEN,
-      analyticsKind.PRICE_PER_WORD
-    );
-
     // https://beta.openai.com/docs/api-reference/completions
-    const response = await fetch("https://api.openai.com/v1/completions", {
+    const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -77,9 +69,7 @@ serve(async (req) => {
       },
       body: JSON.stringify({
         model: analyticsKind.MODEL,
-        prompt: reqData.prompt,
-        // default 16
-        max_tokens: max_tokens,
+        messages: [{ role: "user", content: reqData.prompt }],
       }),
     });
 
@@ -98,7 +88,7 @@ serve(async (req) => {
     await supabaseClient
       .from("balances")
       .update({
-        credit: latestBalance.credit - price,
+        credit: latestBalance ? latestBalance.credit - price : 0,
       })
       .eq("id", user.id)
       .single();

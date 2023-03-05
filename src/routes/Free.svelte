@@ -1,8 +1,9 @@
 <script>
-	import Price from './../lib/Price.svelte';
+  import Price from "./../lib/Price.svelte";
   import { init } from "../states/openai";
-  import { Free } from '../const/analytics-kind';
-  import Description from '../lib/Description.svelte';
+  import { Free } from "../const/analytics-kind";
+  import Description from "../lib/Description.svelte";
+  import Spacer from "../lib/Spacer.svelte";
 
   const {
     message,
@@ -19,9 +20,10 @@
     {Free.DESCRIPTION}
   </Description>
 
-
   <h2>Input</h2>
   <textarea bind:value={$message} placeholder="" />
+
+  <Spacer height={2} />
 
   <button on:click={analyzeMessage} disabled={$executeDisabled}>
     {$executing ? "実行中.." : "実行"}
@@ -42,11 +44,15 @@
 
   textarea,
   .result {
+    background-color: black;
+    color: white;
     width: 100%;
     max-width: 600px;
     min-height: 140px;
+    white-space: pre-wrap;
+    text-align: initial;
     padding: 12px;
-    font-size: 18px;
+    line-height: 1.5;
   }
 
   .result {

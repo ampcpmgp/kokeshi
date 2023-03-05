@@ -4,6 +4,7 @@
   import Price from "../lib/Price.svelte";
   import { init } from "../states/openai";
   import { onMount } from "svelte";
+  import Spacer from "../lib/Spacer.svelte";
 
   const {
     description,
@@ -35,6 +36,8 @@
   <h2>Input</h2>
   <textarea bind:value={$message} placeholder="" />
 
+  <Spacer height={2} />
+
   <button on:click={analyzeMessage} disabled={$executeDisabled}>
     {$executing ? "実行中.." : "実行"}
   </button>
@@ -56,10 +59,15 @@
 
   textarea,
   .result {
+    background-color: black;
+    color: white;
     width: 100%;
     max-width: 600px;
     height: 140px;
     white-space: pre-wrap;
+    text-align: initial;
+    padding: 8px;
+    line-height: 1.5;
   }
 
   .result {
