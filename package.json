@@ -24,6 +24,7 @@
     "vite": "^4.0.0"
   },
   "dependencies": {
+    "@paypayopa/paypayopa-sdk-node": "^2.1.0",
     "@supabase/supabase-js": "^2.2.0",
     "big.js": "^6.2.1",
     "concurrently": "^7.6.0",

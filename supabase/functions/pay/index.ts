@@ -4,6 +4,7 @@
 
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { corsHeaders } from "../_shared/utils/cors.ts";
+import PAYPAY from "npm:@paypayopa/paypayopa-sdk-node";
 
 serve(async (req) => {
   const { method } = req;
@@ -12,6 +13,8 @@ serve(async (req) => {
   if (method === "OPTIONS") {
     return new Response("ok", { headers: corsHeaders });
   }
+
+  console.log(PAYPAY);
 
   const { name } = await req.json();
   const data = {
