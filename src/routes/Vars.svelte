@@ -63,7 +63,6 @@
     color: white;
     width: 100%;
     max-width: 600px;
-    height: 140px;
     white-space: pre-wrap;
     text-align: initial;
     padding: 8px;
