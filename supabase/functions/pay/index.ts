@@ -5,6 +5,9 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createHash } from "https://deno.land/std@0.160.0/hash/mod.ts";
 import { corsHeaders } from "../_shared/utils/cors.ts";
+
+const DELIMITER = "\n";
+
 serve(async (req) => {
   const { method } = req;
 
@@ -14,16 +17,33 @@ serve(async (req) => {
   }
 
   const { name } = await req.json();
-  const hash = createHash("md5");
+  const hasher = createHash("md5");
   const body = JSON.stringify({ name });
   const contentType = "application/json;charset=UTF-8;";
 
-  hash.update(body);
-  hash.update(contentType);
+  hasher.update(body);
+  hasher.update(contentType);
 
-  const data = hash.toString();
+  const hash = hasher.toString();
 
-  return new Response(JSON.stringify(data), {
-    headers: { ...corsHeaders, "Content-Type": "application/json" },
-  });
+  const requestUrl = "/v2/codes/payments/dynamic-qr-test-00002";
+  const httpMethod = "GET";
+  const nonceArr = crypto.getRandomValues(new Uint8Array(16));
+  const nonce = btoa(String.fromCharCode(...nonceArr));
+  const epoch = Date.now();
+
+  const hmacData = new TextEncoder().encode(
+    `${requestUrl}${DELIMITER}${httpMethod}${DELIMITER}${nonce}${DELIMITER}${epoch}${DELIMITER}${contentType}${DELIMITER}${hash}`
+  );
+
+  return new Response(
+    JSON.stringify({
+      hash,
+      hmacData,
+      nonce,
+    }),
+    {
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    }
+  );
 });
