@@ -4,10 +4,6 @@
 
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { corsHeaders } from "../_shared/utils/cors.ts";
-import PAYPAY from "npm:@paypayopa/paypayopa-sdk-node";
-// import PAYPAY from "https://cdn.skypack.dev/@paypayopa/paypayopa-sdk-node";
-// import PAYPAY from "https://www.unpkg.com/browse/@paypayopa/paypayopa-sdk-node@2.1.0/dist/index.js"
-
 serve(async (req) => {
   const { method } = req;
 
@@ -16,11 +12,9 @@ serve(async (req) => {
     return new Response("ok", { headers: corsHeaders });
   }
 
-  console.log(PAYPAY);
-
   const { name } = await req.json();
   const data = {
-    message: `Hello ${name}!`,
+    message: `Hello ${name}! 1223`,
   };
 
   return new Response(JSON.stringify(data), {
