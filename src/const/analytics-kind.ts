@@ -18,12 +18,21 @@ export const Emotion: AnalyticsKind = {
   PRICE_PER_WORD: Server.Emotion["PRICE_PER_WORD"],
 } as const;
 
+export const Emoji: AnalyticsKind = {
+  TITLE: "絵文字変換",
+  EMOJI: "🖌️",
+  DESCRIPTION: "次のメッセージを絵文字のみで表します",
+  PRE: "「",
+  SUF: "」を絵文字のみで分かりやすく表現してください。",
+  PRICE_PER_WORD: Server.Emotion["PRICE_PER_WORD"],
+} as const;
+
 export const Vars: AnalyticsKind = {
   TITLE: "変数名",
   EMOJI: "🔢",
   DESCRIPTION: "分かりやすい変数名を考えます",
   PRE: "「",
-  SUF: "意図を推測」を示す短く分かりやすい変数名をいくつか、英語で教えてください。",
+  SUF: "」を示す短く分かりやすい変数名をいくつか、英語で教えてください。",
   PRICE_PER_WORD: Server.Vars["PRICE_PER_WORD"],
 } as const;
 

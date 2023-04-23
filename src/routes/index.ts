@@ -1,5 +1,6 @@
 import Home from "./Home.svelte";
 import Emotion from "./Emotion.svelte";
+import Emoji from "./Emoji.svelte";
 import Vars from "./Vars.svelte";
 import Free from "./Free.svelte";
 import EmailAuth from "./EmailAuth.svelte";
@@ -11,6 +12,7 @@ export const routes = {
   // Exact path
   "/": Home,
   "/emotion": Emotion,
+  "/emoji": Emoji,
   "/vars": Vars,
   "/free": Free,
   "/email-auth": EmailAuth,

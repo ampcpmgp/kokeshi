@@ -1,6 +1,6 @@
 <script>
-  import Description from "./../lib/Description.svelte";
-  import { Vars } from "../const/analytics-kind";
+  import Description from "../lib/Description.svelte";
+  import { Emoji } from "../const/analytics-kind";
   import Price from "../lib/Price.svelte";
   import { init } from "../states/openai";
   import { onMount } from "svelte";
@@ -21,16 +21,16 @@
   } = init();
 
   onMount(() => {
-    $description = Vars.DESCRIPTION;
-    $pre = Vars.PRE;
-    $suf = Vars.SUF;
+    $description = Emoji.DESCRIPTION;
+    $pre = Emoji.PRE;
+    $suf = Emoji.SUF;
     $kind = "emotion";
   });
 </script>
 
 <main>
   <Description>
-    {Vars.DESCRIPTION}
+    {Emoji.DESCRIPTION}
   </Description>
 
   <h2>Input</h2>
@@ -63,15 +63,14 @@
     color: white;
     width: 100%;
     max-width: 600px;
-    white-space: pre-wrap;
-    text-align: initial;
-    padding: 8px;
-    line-height: 1.5;
+    height: 140px;
   }
 
   .result {
     border-radius: 8px;
     border: solid 1px #ccc;
+    font-size: 60px;
+    line-height: 90px;
     flex: 1;
   }
 </style>
