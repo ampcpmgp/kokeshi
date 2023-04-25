@@ -5,6 +5,7 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createHash } from "https://deno.land/std@0.160.0/hash/mod.ts";
 import { corsHeaders } from "../_shared/utils/cors.ts";
+import { toBase64HmacString } from "./toBase64HmacString.ts";
 
 const DELIMITER = "\n";
 
@@ -27,19 +28,24 @@ serve(async (req) => {
   const hash = hasher.toString();
 
   const requestUrl = "/v2/codes/payments/dynamic-qr-test-00002";
-  const httpMethod = "GET";
+  const httpMethod = "POST";
   const nonceArr = crypto.getRandomValues(new Uint8Array(16));
   const nonce = btoa(String.fromCharCode(...nonceArr));
   const epoch = Date.now();
 
-  const hmacData = new TextEncoder().encode(
+  const hmacArr = new TextEncoder().encode(
     `${requestUrl}${DELIMITER}${httpMethod}${DELIMITER}${nonce}${DELIMITER}${epoch}${DELIMITER}${contentType}${DELIMITER}${hash}`
+  );
+
+  const hmac = toBase64HmacString(
+    Deno.env.get("PAYPAY_SECRET_KEY") ?? "",
+    hmacArr
   );
 
   return new Response(
     JSON.stringify({
       hash,
-      hmacData,
+      hmac,
       nonce,
     }),
     {
