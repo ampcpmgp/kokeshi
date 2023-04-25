@@ -22,3 +22,9 @@ npm run dev
 ```shell
 npx supabase functions deploy openai --project-ref <SUPABASE_PROJECT_REF>
 ```
+
+### Set secrets
+
+```shell
+npx supabase secrets set <SECRET_NAME=secret_value>
+```
