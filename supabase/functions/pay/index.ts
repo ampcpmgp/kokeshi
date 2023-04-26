@@ -32,20 +32,26 @@ serve(async (req) => {
   const nonceArr = crypto.getRandomValues(new Uint8Array(16));
   const nonce = btoa(String.fromCharCode(...nonceArr));
   const epoch = Date.now();
+  const apiKey = Deno.env.get("PAYPAY_API_KEY") ?? "";
+  const secretKey = Deno.env.get("PAYPAY_SECRET_KEY") ?? "";
 
   const hmacArr = new TextEncoder().encode(
     `${requestUrl}${DELIMITER}${httpMethod}${DELIMITER}${nonce}${DELIMITER}${epoch}${DELIMITER}${contentType}${DELIMITER}${hash}`
   );
 
-  const hmac = toBase64HmacString(
-    Deno.env.get("PAYPAY_SECRET_KEY") ?? "",
-    hmacArr
-  );
+  const hmac = toBase64HmacString(secretKey, hmacArr);
+
+  /**
+   * docs
+   * https://www.paypay.ne.jp/opa/doc/jp/v1.0/webcashier#tag/API/HMAC-auth
+   */
+  const authHeader = `hmac OPA-Auth:${apiKey}:${hmac}:${nonce}:${epoch}:${hash}`;
 
   return new Response(
     JSON.stringify({
       hash,
       hmac,
+      authHeader,
       nonce,
     }),
     {
