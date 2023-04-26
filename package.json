@@ -6,10 +6,7 @@
   "scripts": {
     "dev": "concurrently \"npm:dev:*\"",
     "dev:frontend": "vite",
-    "dev:functions": "concurrently \"npm:dev:functions:*\"",
-    "dev:functions:openai": "npx supabase functions serve --env-file .env openai",
-    "dev:functions:hello": "npx supabase functions serve --env-file .env hello",
-    "dev:functions:pay": "npx supabase functions serve --env-file .env pay",
+    "dev:functions": "npx supabase functions serve --env-file .env --all",
     "build": "vite build",
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json"
@@ -30,7 +27,7 @@
     "concurrently": "^7.6.0",
     "openai": "^3.1.0",
     "stripe": "^11.4.0",
-    "supabase": "^1.26.5",
+    "supabase": "^1.50.13",
     "svelte-spa-router": "^3.3.0",
     "ts-pattern": "^4.0.6"
   }
