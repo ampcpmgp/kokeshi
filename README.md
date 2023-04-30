@@ -32,7 +32,7 @@ npm run dev:functions:pay
 npx supabase functions deploy openai --project-ref <SUPABASE_PROJECT_REF>
 ```
 
-### Set secrets 
+### Set secrets
 
 supabase
 
