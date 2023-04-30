@@ -21,7 +21,7 @@ npm run dev
 
 ```shell
 npm run dev:functions:openai
-npm run dev:functions:pay 
+npm run dev:functions:pay
 ```
 
 *`npm run dev:functions` currently not working.*
