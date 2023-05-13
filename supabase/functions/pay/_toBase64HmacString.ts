@@ -6,7 +6,7 @@ export function _toBase64HmacString(apiKeySecret: string, dataToSign: string) {
 
   hmac.update(dataToSign);
 
-  const rawHmac = hmac.digest();
+  const buffer = hmac.digest();
 
-  return btoa(String.fromCharCode(...new Uint8Array(rawHmac)));
+  return btoa(String.fromCharCode(...new Uint8Array(buffer)));
 }
