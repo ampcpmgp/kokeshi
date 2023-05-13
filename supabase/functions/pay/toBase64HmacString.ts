@@ -1,12 +1,24 @@
-import { createHmac } from "https://deno.land/std@0.177.0/node/crypto.ts";
+import { crypto } from "https://deno.land/std@0.186.0/crypto/mod.ts";
 
-export function toBase64HmacString(
+export async function toBase64HmacString(
   apiKeySecret: string,
-  dataToSign: ArrayBuffer
+  dataToSign: string
 ) {
-  const signingKey = new TextEncoder().encode(apiKeySecret);
-  const hmac = createHmac("sha256", signingKey);
-  hmac.update(dataToSign);
-  const rawHmac = hmac.digest();
-  return btoa(String.fromCharCode(...new Uint8Array(rawHmac)));
+  const encoder = new TextEncoder();
+
+  const key = await crypto.subtle.importKey(
+    "raw",
+    encoder.encode(apiKeySecret),
+    { name: "HMAC", hash: { name: "SHA-256" } },
+    false,
+    ["sign"]
+  );
+
+  const signature = await crypto.subtle.sign(
+    "HMAC",
+    key,
+    encoder.encode(dataToSign)
+  );
+
+  return btoa(String.fromCharCode(...new Uint8Array(signature)));
 }

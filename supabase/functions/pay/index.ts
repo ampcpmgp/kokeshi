@@ -7,6 +7,7 @@ import { crypto } from "https://deno.land/std@0.186.0/crypto/mod.ts";
 import { corsHeaders } from "../_shared/utils/cors.ts";
 import { toBase64HmacString } from "./toBase64HmacString.ts";
 import { API_URL } from "./const.ts";
+import { _toBase64HmacString } from "./_toBase64HmacString.ts";
 
 const DELIMITER = "\n";
 
@@ -42,21 +43,19 @@ serve(async (req) => {
     "MD5",
     encoder.encode(body + contentType)
   );
+
   const hashBin = new Uint8Array(hashBuff);
   const hash = bin2hex(hashBin);
   const requestUrl = `${API_URL}/codes`;
   const httpMethod = "POST";
-  const nonceArr = crypto.getRandomValues(new Uint8Array(8));
-  const nonce = btoa(String.fromCharCode(...nonceArr));
+  const nonce = crypto.randomUUID();
   const epoch = Math.floor(Date.now() / 1000);
   const apiKey = Deno.env.get("PAYPAY_API_KEY") ?? "";
   const secretKey = Deno.env.get("PAYPAY_SECRET_KEY") ?? "";
 
-  const hmacArr = new TextEncoder().encode(
-    `${requestUrl}${DELIMITER}${httpMethod}${DELIMITER}${nonce}${DELIMITER}${epoch}${DELIMITER}${contentType}${DELIMITER}${hash}`
-  );
+  const hmacStr = `${requestUrl}${DELIMITER}${httpMethod}${DELIMITER}${nonce}${DELIMITER}${epoch}${DELIMITER}${contentType}${DELIMITER}${hash}`;
 
-  const hmac = toBase64HmacString(secretKey, hmacArr);
+  const hmac = await toBase64HmacString(secretKey, hmacStr);
 
   /**
    * docs
@@ -64,7 +63,10 @@ serve(async (req) => {
    */
   const authHeader = `hmac OPA-Auth:${apiKey}:${hmac}:${nonce}:${epoch}:${hash}`;
 
-  console.log("🚀🐡 ~ file: index.ts:61 ~ serve ~ authHeader:", authHeader);
+  console.log("🚀 authHeader", authHeader);
+
+  // return new Response(JSON.stringify({}));
+
   const response = await fetch(requestUrl, {
     method: "POST",
     headers: {
@@ -76,6 +78,7 @@ serve(async (req) => {
   });
 
   const data = await response.json();
+
   console.log("🚀 response.status", response.status);
   console.log("🚀 response.statusText", response.statusText);
   console.log("🚀 data", data);
