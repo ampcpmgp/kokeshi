@@ -2,33 +2,31 @@
 // https://deno.land/manual/getting_started/setup_your_environment
 // This enables autocomplete, go to definition, etc.
 
-import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { serve } from "https://deno.land/std@0.186.0/http/server.ts";
 import { crypto } from "https://deno.land/std@0.186.0/crypto/mod.ts";
 import { corsHeaders } from "../_shared/utils/cors.ts";
 import { toBase64HmacString } from "./toBase64HmacString.ts";
 import { API_URL } from "./const.ts";
 import { _toBase64HmacString } from "./_toBase64HmacString.ts";
+import { createHash } from "https://deno.land/std@0.119.0/hash/mod.ts";
+import { encode } from "https://deno.land/std@0.186.0/encoding/base64.ts";
 
 const DELIMITER = "\n";
 
-function bin2hex(binary: Uint8Array) {
-  return Array.from(binary)
-    .map((b) => b.toString(16).padStart(2, "0"))
-    .join("");
-}
-
 serve(async (req) => {
-  const { method } = req;
-
   // This is needed if you're planning to invoke your function from a browser.
-  if (method === "OPTIONS") {
+  if (req.method === "OPTIONS") {
     return new Response("ok", { headers: corsHeaders });
   }
 
   const { name } = await req.json();
 
+  const epoch = Math.floor(Date.now() / 1000);
+  const nonce = crypto.randomUUID();
+  const merchantPaymentId = crypto.randomUUID();
+
   const body = JSON.stringify({
-    merchantPaymentId: Deno.env.get("PAYPAY_MERCHANT_ID"),
+    merchantPaymentId,
     amount: {
       amount: 100,
       currency: "JPY",
@@ -37,43 +35,57 @@ serve(async (req) => {
     codeType: "ORDER_QR",
   });
 
-  const contentType = "application/json;charset=UTF-8;";
-  const encoder = new TextEncoder();
-  const hashBuff = await crypto.subtle.digest(
-    "MD5",
-    encoder.encode(body + contentType)
-  );
-
-  const hashBin = new Uint8Array(hashBuff);
-  const hash = bin2hex(hashBin);
   const requestUrl = `${API_URL}/codes`;
-  const httpMethod = "POST";
-  const nonce = crypto.randomUUID();
-  const epoch = Math.floor(Date.now() / 1000);
+  const method = "POST";
+  const contentType = "application/json";
+
+  const hash = createHash("md5");
+  hash.update(contentType);
+  hash.update(body);
+
+  const payloadDigest = encode(hash.digest());
+
   const apiKey = Deno.env.get("PAYPAY_API_KEY") ?? "";
   const secretKey = Deno.env.get("PAYPAY_SECRET_KEY") ?? "";
+  const merchantId = Deno.env.get("PAYPAY_MERCHANT_ID") ?? "";
 
-  const hmacStr = `${requestUrl}${DELIMITER}${httpMethod}${DELIMITER}${nonce}${DELIMITER}${epoch}${DELIMITER}${contentType}${DELIMITER}${hash}`;
+  const signatureRawList = [
+    requestUrl,
+    method,
+    nonce,
+    epoch,
+    contentType,
+    payloadDigest,
+  ];
+  const signatureRawData = signatureRawList.join(DELIMITER);
 
-  const hmac = await toBase64HmacString(secretKey, hmacStr);
+  const hmac = await toBase64HmacString(secretKey, signatureRawData);
 
-  /**
-   * docs
-   * https://www.paypay.ne.jp/opa/doc/jp/v1.0/webcashier#tag/API/HMAC-auth
-   */
-  const authHeader = `hmac OPA-Auth:${apiKey}:${hmac}:${nonce}:${epoch}:${hash}`;
+  const headList = [apiKey, hmac, nonce, epoch, payloadDigest];
+  const header = headList.join(":");
+  const authHeader = `hmac OPA-Auth:${header}`;
 
-  console.log("🚀 authHeader", authHeader);
+  const headers = {
+    AUTHORIZATION: authHeader,
+    "Content-Type": contentType,
+    "X-ASSUME-MERCHANT": merchantId,
+  };
 
-  // return new Response(JSON.stringify({}));
+  console.log(
+    "🚀🐡 ~ file: index.ts:60 ~ serve ~ signatureRawData:",
+    signatureRawData
+  );
+
+  console.log("🚀 requestUrl", requestUrl);
+  console.log("🚀 method", method);
+  console.log("🚀 headers", JSON.stringify(headers, null, "  "));
+  console.log("🚀 body", JSON.stringify(JSON.parse(body), null, "  "));
+
+  return new Response(JSON.stringify({}));
 
   const response = await fetch(requestUrl, {
-    method: "POST",
-    headers: {
-      AUTHORIZATION: authHeader,
-      "Content-Type": "application/json;charset=UTF-8;",
-      "X-ASSUME-MERCHANT": `Bearer ${Deno.env.get("PAYPAY_MERCHANT_ID")}`,
-    },
+    method,
+    headers,
     body,
   });
 
@@ -86,7 +98,6 @@ serve(async (req) => {
   return new Response(
     JSON.stringify({
       hash,
-      hmac,
       authHeader,
       nonce,
     }),
