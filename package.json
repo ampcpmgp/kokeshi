@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "concurrently \"npm:dev:frontend\"",
+    "dev": "concurrently \"npm:dev:*\"",
     "dev:frontend": "vite",
     "dev:functions": "npx supabase functions serve --env-file .env",
     "build": "vite build",
