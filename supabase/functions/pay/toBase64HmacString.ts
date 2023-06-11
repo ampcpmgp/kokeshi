@@ -1,5 +1,3 @@
-import { crypto } from "https://deno.land/std@0.186.0/crypto/mod.ts";
-
 export async function toBase64HmacString(
   apiKeySecret: string,
   dataToSign: string
