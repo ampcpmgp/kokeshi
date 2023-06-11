@@ -6,7 +6,6 @@ import { serve } from "https://deno.land/std@0.186.0/http/server.ts";
 import { corsHeaders } from "../_shared/utils/cors.ts";
 import { toBase64HmacString } from "./toBase64HmacString.ts";
 import { API_STG_URL } from "./const.ts";
-import { _toBase64HmacString } from "./_toBase64HmacString.ts";
 import { createHash } from "https://deno.land/std@0.119.0/hash/mod.ts";
 import { encode } from "https://deno.land/std@0.186.0/encoding/base64.ts";
 

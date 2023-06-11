@@ -1,22 +1,12 @@
-export async function toBase64HmacString(
-  apiKeySecret: string,
-  dataToSign: string
-) {
-  const encoder = new TextEncoder();
+import { createHmac } from "https://deno.land/std@0.177.0/node/crypto.ts";
 
-  const key = await crypto.subtle.importKey(
-    "raw",
-    encoder.encode(apiKeySecret),
-    { name: "HMAC", hash: { name: "SHA-256" } },
-    false,
-    ["sign"]
-  );
+export function toBase64HmacString(apiKeySecret: string, dataToSign: string) {
+  const signingKey = new TextEncoder().encode(apiKeySecret);
+  const hmac = createHmac("sha256", signingKey);
 
-  const signature = await crypto.subtle.sign(
-    "HMAC",
-    key,
-    encoder.encode(dataToSign)
-  );
+  hmac.update(dataToSign);
 
-  return btoa(String.fromCharCode(...new Uint8Array(signature)));
+  const buffer = hmac.digest();
+
+  return btoa(String.fromCharCode(...new Uint8Array(buffer)));
 }
