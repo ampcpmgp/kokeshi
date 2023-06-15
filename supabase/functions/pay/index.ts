@@ -82,17 +82,12 @@ serve(async (req) => {
     body,
   });
 
-  const data = await response.json();
-
-  console.log("🚀 response.status", response.status);
-  console.log("🚀 response.statusText", response.statusText);
-  console.log("🚀 data", data);
+  const { data: responseData } = await response.json();
 
   return new Response(
     JSON.stringify({
-      hash,
-      authHeader,
-      nonce,
+      url: responseData.url,
+      merchantPaymentId: responseData.merchantPaymentId,
     }),
     {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
