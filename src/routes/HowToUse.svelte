@@ -26,6 +26,8 @@
   <img src="/how-to-use/analytics-page.png" alt="Move to analysis page" />
   <span class="remark">
     感情判定：入力したメッセージの感情を絵文字で分類します。<br />
+    絵文字変換：入力したメッセージを絵文字だけで表現します。<br />
+    変数名：入力したメッセージからより良い変数名を提案します。<br />
     自由入力：入力したメッセージの意図を推測し、返信します。
   </span>
   <Spacer height={24} />
