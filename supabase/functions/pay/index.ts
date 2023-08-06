@@ -71,11 +71,6 @@ serve(async (req) => {
     "X-ASSUME-MERCHANT": merchantId,
   };
 
-  console.log("🚀 requestUrl", requestUrl);
-  console.log("🚀 method", method);
-  console.log("🚀 headers", JSON.stringify(headers, null, "  "));
-  console.log("🚀 body", JSON.stringify(JSON.parse(body), null, "  "));
-
   const response = await fetch(requestUrl, {
     method,
     headers,

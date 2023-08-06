@@ -8,6 +8,7 @@
   let credit = 0.0;
 
   const query = supabase.from("balances");
+
   const subscriber = supabase
     .channel("*")
     .on(
