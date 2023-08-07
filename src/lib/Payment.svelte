@@ -3,9 +3,11 @@
   import { supabase } from "../supabaseClient";
   import { pay } from "../utils/payment/payment";
   import Spacer from "./Spacer.svelte";
+  import { resolved } from "../states/resolved";
 
   let price: 100 | 1000 | 10000 = 100;
   let credit = 0.0;
+  let payResolved = resolved(Promise.resolve());
 
   const query = supabase.from("balances");
 
@@ -57,7 +59,8 @@
 
   <button
     style="display: flex; place-items: center; gap: 8px;"
-    on:click={() => pay("paypay", price)}
+    on:click={() => (payResolved = resolved(pay("paypay", price)))}
+    disabled={!$payResolved}
   >
     PayPay で購入
     <img
