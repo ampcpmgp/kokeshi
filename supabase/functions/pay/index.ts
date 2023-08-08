@@ -17,7 +17,7 @@ serve(async (req) => {
     return new Response("ok", { headers: corsHeaders });
   }
 
-  const { name } = await req.json();
+  const { price } = await req.json();
 
   const epoch = Math.floor(Date.now() / 1000);
   const nonce = crypto.randomUUID();
@@ -26,7 +26,7 @@ serve(async (req) => {
   const body = JSON.stringify({
     merchantPaymentId,
     amount: {
-      amount: 100,
+      amount: price,
       currency: "JPY",
     },
     orderDescription: "",

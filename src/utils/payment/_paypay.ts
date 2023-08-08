@@ -2,7 +2,7 @@ import { supabase } from "../../supabaseClient";
 
 export async function pay(price) {
   const { data, error } = await supabase.functions.invoke("pay", {
-    body: { name: "hello" },
+    body: { price },
   });
 
   if (error || !data || !data.url) {
