@@ -7,6 +7,7 @@ import EmailAuth from "./EmailAuth.svelte";
 import Law from "./Law.svelte";
 import About from "./About.svelte";
 import HowToUse from "./HowToUse.svelte";
+import CheckPay from "./CheckPay.svelte";
 
 export const routes = {
   // Exact path
@@ -19,6 +20,7 @@ export const routes = {
   "/law": Law,
   "/about": About,
   "/how-to-use": HowToUse,
+  "/check-pay/:kind": CheckPay,
 
   // Catch-all
   "*": Home,
