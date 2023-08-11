@@ -32,6 +32,8 @@ serve(async (req) => {
     orderDescription: "",
     isAuthorization: false,
     codeType: "ORDER_QR",
+    redirectUrl: `${req.headers.get("origin")}/check-pay/paypay`,
+    redirectType: "WEB_LINK",
   });
 
   const resourceUrl = "/v2/codes";

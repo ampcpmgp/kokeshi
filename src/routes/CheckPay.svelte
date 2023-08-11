@@ -3,7 +3,7 @@
 </script>
 
 <main>
-  {#if $params.kind === "paypay"}
+  {#if $params?.kind === "paypay"}
     paypay
   {:else}
     対応していない決済方式です。
