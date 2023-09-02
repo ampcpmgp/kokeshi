@@ -2,8 +2,6 @@ import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { corsHeaders } from "../../_shared/utils/cors.ts";
 import { API_STG_URL } from "../const.ts";
 
-console.log("Hello from Functions!");
-
 serve(async (req) => {
   // This is needed if you're planning to invoke your function from a browser.
   if (req.method === "OPTIONS") {

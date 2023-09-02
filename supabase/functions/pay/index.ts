@@ -8,6 +8,7 @@ import { toBase64HmacString } from "./toBase64HmacString.ts";
 import { API_STG_URL } from "./const.ts";
 import { createHash } from "https://deno.land/std@0.119.0/hash/mod.ts";
 import { encode } from "https://deno.land/std@0.186.0/encoding/base64.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.2.0";
 
 const DELIMITER = "\n";
 
@@ -16,6 +17,25 @@ serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response("ok", { headers: corsHeaders });
   }
+
+  // get client
+  const supabaseClient = createClient(
+    Deno.env.get("SUPABASE_URL") ?? "",
+    Deno.env.get("SUPABASE_ANON_KEY") ?? "",
+    {
+      global: {
+        headers: { Authorization: req.headers.get("Authorization")! },
+      },
+    }
+  );
+
+  const {
+    data: { user },
+    error,
+  } = await supabaseClient.auth.getUser();
+
+  if (error) throw error;
+  if (!user) throw new Error("No User");
 
   const { price } = await req.json();
 
@@ -80,6 +100,17 @@ serve(async (req) => {
   });
 
   const { data: responseData } = await response.json();
+
+  const payment = {
+    id: user.id,
+    payment_id: merchantId,
+    amount: price,
+    completed: false,
+  };
+
+  const result = await supabaseClient.from("payments").insert(payment).select();
+
+  if (result.error) throw result.error;
 
   return new Response(
     JSON.stringify({
