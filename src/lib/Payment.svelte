@@ -8,6 +8,7 @@
   let price: 100 | 1000 | 10000 = 100;
   let credit = 0.0;
   let payResolved = resolved(Promise.resolve());
+  let inProgress = false;
 
   const query = supabase.from("balances");
 
@@ -27,6 +28,11 @@
     return data[0].credit;
   }
 
+  async function handlePayClick() {
+    inProgress = true;
+    payResolved = resolved(pay("paypay", price));
+  }
+
   onMount(async () => {
     credit = await getCredit();
     subscriber.subscribe();
@@ -36,6 +42,11 @@
     subscriber.unsubscribe();
   });
 </script>
+
+<svelte:window
+  on:blur={() => console.log("blur")}
+  on:focus={() => console.log("focus")}
+/>
 
 <main>
   <div>[残高]</div>
@@ -59,7 +70,7 @@
 
   <button
     style="display: flex; place-items: center; gap: 8px;"
-    on:click={() => (payResolved = resolved(pay("paypay", price)))}
+    on:click={handlePayClick}
     disabled={!$payResolved}
   >
     PayPay で購入
