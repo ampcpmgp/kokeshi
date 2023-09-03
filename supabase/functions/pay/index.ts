@@ -103,7 +103,7 @@ serve(async (req) => {
 
   const payment = {
     id: user.id,
-    payment_id: merchantId,
+    payment_id: responseData.merchantPaymentId,
     amount: price,
     completed: false,
   };
