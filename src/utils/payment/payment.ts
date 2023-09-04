@@ -7,3 +7,9 @@ export function pay(via: "paypay", price) {
     return paypay.pay(price);
   }
 }
+
+export function checkPay(via: "paypay", id) {
+  if (via === "paypay") {
+    return paypay.checkPay(id);
+  }
+}

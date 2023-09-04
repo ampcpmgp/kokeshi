@@ -13,3 +13,17 @@ export async function pay(price) {
 
   window.open(data.url, "_blank");
 }
+
+export async function checkPay(id) {
+  const { data, error } = await supabase.functions.invoke("pay-check", {
+    body: { id },
+  });
+
+  if (error || !data) {
+    alert("エラーが発生しました。時間を置いて、再度お試しください。");
+
+    return;
+  }
+
+  return data.status;
+}

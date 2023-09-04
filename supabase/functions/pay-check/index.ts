@@ -1,10 +1,17 @@
+// Follow this setup guide to integrate the Deno language server with your editor:
+// https://deno.land/manual/getting_started/setup_your_environment
+// This enables autocomplete, go to definition, etc.
+
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
-import { corsHeaders } from "../../_shared/utils/cors.ts";
-import { API_STG_URL } from "../const.ts";
+import { corsHeaders } from "../_shared/utils/cors.ts";
+
+console.log("Hello from Functions!");
 
 serve(async (req) => {
+  const { method } = req;
+
   // This is needed if you're planning to invoke your function from a browser.
-  if (req.method === "OPTIONS") {
+  if (method === "OPTIONS") {
     return new Response("ok", { headers: corsHeaders });
   }
 
@@ -12,13 +19,6 @@ serve(async (req) => {
   const data = {
     message: `Hello ${name}!`,
   };
-
-  const resourceUrl = "/v2/codes";
-  const requestUrl = `${API_STG_URL}${resourceUrl}`;
-  const method = "GET";
-  const contentType = "application/json";
-
-  void requestUrl, method, contentType;
 
   return new Response(JSON.stringify(data), {
     headers: { ...corsHeaders, "Content-Type": "application/json" },
