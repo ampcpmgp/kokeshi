@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onDestroy, onMount } from "svelte";
   import { supabase } from "../supabaseClient";
-  import { pay } from "../utils/payment/payment";
+  import { checkPay, pay } from "../utils/payment/payment";
   import Spacer from "./Spacer.svelte";
   import { resolved } from "../states/resolved";
 
@@ -9,6 +9,8 @@
   let credit = 0.0;
   let payResolved = resolved(Promise.resolve());
   let inProgress = false;
+  let isBlurred = false;
+  let lastPaymentId = "";
 
   const query = supabase.from("balances");
 
@@ -30,7 +32,29 @@
 
   async function handlePayClick() {
     inProgress = true;
-    payResolved = resolved(pay("paypay", price));
+    const payP = pay("paypay", price);
+    payResolved = resolved(payP);
+
+    try {
+      const data = await payP;
+
+      lastPaymentId = data.paymentId;
+      window.open(data.url, "_blank");
+    } catch (e) {
+      console.error(e);
+    } finally {
+      inProgress = false;
+    }
+  }
+
+  function handleWindowBlur() {
+    isBlurred = true;
+  }
+
+  function handleWindowFocus() {
+    isBlurred = false;
+
+    if (!inProgress) return;
   }
 
   onMount(async () => {
@@ -43,14 +67,19 @@
   });
 </script>
 
-<svelte:window
-  on:blur={() => console.log("blur")}
-  on:focus={() => console.log("focus")}
-/>
+<svelte:window on:blur={handleWindowBlur} on:focus={handleWindowFocus} />
 
 <main>
   <div>[残高]</div>
   <span>{credit}円</span>
+
+  <button
+    on:click={() => {
+      checkPay("paypay", lastPaymentId);
+    }}
+  >
+    {lastPaymentId}
+  </button>
 
   <Spacer height={12} />
 

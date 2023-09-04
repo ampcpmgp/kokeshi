@@ -11,7 +11,7 @@ export async function pay(price) {
     return;
   }
 
-  window.open(data.url, "_blank");
+  return data;
 }
 
 export async function checkPay(id) {

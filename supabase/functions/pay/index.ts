@@ -115,7 +115,7 @@ serve(async (req) => {
   return new Response(
     JSON.stringify({
       url: responseData.url,
-      merchantPaymentId: responseData.merchantPaymentId,
+      paymentId: responseData.merchantPaymentId,
     }),
     {
       headers: { ...corsHeaders, "Content-Type": "application/json" },

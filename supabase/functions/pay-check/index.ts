@@ -5,8 +5,6 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { corsHeaders } from "../_shared/utils/cors.ts";
 
-console.log("Hello from Functions!");
-
 serve(async (req) => {
   const { method } = req;
 
@@ -15,10 +13,12 @@ serve(async (req) => {
     return new Response("ok", { headers: corsHeaders });
   }
 
-  const { name } = await req.json();
+  const { id } = await req.json();
   const data = {
-    message: `Hello ${name}!`,
+    message: id,
   };
+
+  console.log("🚀 data", data);
 
   return new Response(JSON.stringify(data), {
     headers: { ...corsHeaders, "Content-Type": "application/json" },
